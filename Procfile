@@ -1,0 +1,1 @@
+spam: python -m SpamBot
