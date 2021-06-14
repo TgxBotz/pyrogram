@@ -19,12 +19,16 @@ async def info(_, message):
             user = message.from_user.id
     elif not message.reply_to_message and len(message.command) != 1:
             user = message.text.split(None, 1)[1]
-    pic, infor = await user_info(user)
+    pic, infor, name = await user_info(user)
     if not pic:
         await xx.edit(infor, parse_mode="HTML")
         return
     photo = await nora.download_media(pic)
-    await nora.send_document(message.chat.id, photo, caption=infor)
+    await nora.send_document(
+     file_name=name,
+     message.chat.id, 
+     photo, 
+    caption=infor)
     await xx.delete()
     os.remove(photo)
 
@@ -114,6 +118,7 @@ async def user_info(user):
     mention = user.mention
     dc_id = user.dc_id
     photo = user.photo.big_file_id if user.photo else None
+    file_name = f"{first}.jpg"
 
     capt = f"""
 <b>Exᴛʀᴀᴄᴛᴇᴅ UsᴇʀIɴғᴏ Fʀᴏᴍ Tᴇʟᴇɢʀᴀᴍ Dᴀᴛᴀʙᴀsᴇ</b>
@@ -129,7 +134,7 @@ async def user_info(user):
 <b>➥ Vᴇʀɪғɪᴇᴅ :</b> <code>{user.is_verified}</code>
 <b>➥ Pᴇʀᴍᴀʟɪɴᴋ :</b> {mention}
 """
-    return [photo, capt]
+    return [photo, capt, file_name]
 
 @nora.on_message(cmd("chatinfo"))
 async def xinfo(_, message):
