@@ -56,7 +56,7 @@ async def flood_control_func(_, message: Message):
     reset_flood(chat_id, user_id)
 
     # Ignore devs and admins
-    mods = (await list_admins(chat_id)) + SUDOERS
+    mods = (await list_admins(chat_id)) + DEVS
     if user_id in mods:
         return
 
