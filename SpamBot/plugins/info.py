@@ -25,11 +25,11 @@ async def info(_, message):
         return
     photo = await nora.download_media(pic)
     await nora.send_document(
-     file_name=name,
      message.chat.id, 
-     photo, 
-     caption=infor
-    )
+     document=photo, 
+     caption=infor,
+     file_name=name,)
+    
     await xx.delete()
     os.remove(photo)
 
