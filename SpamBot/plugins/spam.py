@@ -25,12 +25,13 @@ def reset_flood(chat_id, user_id=0):
         if user != user_id:
             DB[chat_id][user] = 0
 
-
+flood_group = 14
 @nora.on_message(
         ~filters.service
         & ~filters.me
         & ~filters.private
-        & ~filters.channel
+        & ~filters.channel,
+        group=flood_group
 )
 async def flood(client, message: Message):
     chat_id = message.chat.id
