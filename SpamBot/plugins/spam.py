@@ -11,7 +11,7 @@ from pyrogram.types import (
 
 async def list_admins(chat_id: int):
     list_of_admins = []
-    async for member in app.iter_chat_members(
+    async for member in nora.iter_chat_members(
         chat_id, filter="administrators"
     ):
         list_of_admins.append(member.user.id)
