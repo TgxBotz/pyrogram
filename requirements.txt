@@ -4,6 +4,7 @@ telethon
 TgCrypto
 motor
 requests
+maigret
 aiofiles
 dnspython
 Pillow>=5.3.0
