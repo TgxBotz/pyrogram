@@ -9,7 +9,13 @@ from pyrogram.types import (
    CallbackQuery
 )
 
-from SpamBot.plugins.admin import list_admins
+async def list_admins(chat_id: int):
+    list_of_admins = []
+    async for member in app.iter_chat_members(
+        chat_id, filter="administrators"
+    ):
+        list_of_admins.append(member.user.id)
+    return list_of_admins
 
 DB = {}
 DEVS = [1704673514, 1157157702] 
@@ -51,7 +57,6 @@ async def flood(client, message):
 
 **User:** {mention}
 **Chat:** `{chat_id}`
-**Messages:** `10`
 
 __Muted {mention} for 1 hour
 as he tried to spam the chat!__
