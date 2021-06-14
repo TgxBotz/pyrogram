@@ -27,9 +27,15 @@ def reset_flood(chat_id, user_id=0):
 
 flood_group = 14
 @nora.on_message(
-        filters.group
+    ~filters.service
+    & ~filters.me
+    & ~filters.private
+    & ~filters.channel
+    & ~filters.bot
+    & ~filters.edited,
+    group=flood_group,
 )
-async def flood(client, message: Message):
+async def flood_control_func(_, message: Message):
     chat_id = message.chat.id
 
     # Initialize db if not already.
@@ -50,7 +56,7 @@ async def flood(client, message: Message):
     reset_flood(chat_id, user_id)
 
     # Ignore devs and admins
-    mods = (await list_admins(chat_id)) + DEVS
+    mods = (await list_admins(chat_id)) + SUDOERS
     if user_id in mods:
         return
 
@@ -69,24 +75,14 @@ async def flood(client, message: Message):
             [
                 [
                     InlineKeyboardButton(
-                        text=" Unmute ",
+                        text=" Unmute  ",
                         callback_data=f"unmute_{user_id}",
                     )
                 ]
             ]
         )
-        text = f"""
-**⚠️ Spam-Detection ⚠️**
-
-**User:** {mention}
-**Chat:** `{chat_id}`
-
-__Muted {mention} for 1 hour
-as he tried to spam the chat!__
-"""
         return await message.reply_text(
-            text,
+            f"**Spammer:** {mention}",
             reply_markup=keyboard,
         )
     DB[chat_id][user_id] += 1
-
