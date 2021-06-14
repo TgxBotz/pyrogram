@@ -28,7 +28,8 @@ async def info(_, message):
      file_name=name,
      message.chat.id, 
      photo, 
-    caption=infor)
+     caption=infor
+    )
     await xx.delete()
     os.remove(photo)
 
