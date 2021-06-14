@@ -4,7 +4,7 @@ from time import time
 from pyrogram.types import (
    InlineKeyboardMarkup, 
    InlineKeyboardButton,
-   ChatPermissions
+   ChatPermissions,
    Message,
    CallbackQuery
 )
