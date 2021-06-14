@@ -65,7 +65,7 @@ as he tried to spam the chat!__
           InlineKeyboardButton("Unmute", callback_data=f"unmute_{user_id}")
         ]
         await message.reply(text, reply_markup=InlineKeyboardMarkup([keyboard]))
-
+        return
     DB[chat_id][user_id] += 1
 
     
