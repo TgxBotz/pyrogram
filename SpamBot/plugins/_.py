@@ -2,6 +2,7 @@ import requests
 from SpamBot import *
 from pyrogram import filters
 import random
+from faker import Faker
 from pyrogram.types import (
    InlineKeyboardButton,
    InlineKeyboardMarkup,
@@ -15,6 +16,8 @@ import string
 from tpblite import TPB
 import json
 from . import MEDIA_QUERY
+from faker.providers import internet
+
 
 wdb = TinyDB("SpamBot/helpers/secret.json")
 
@@ -552,4 +555,44 @@ async def anime_search(client, iq):
             reply_markup=InlineKeyboardMarkup([keyboard])
          )
        )
+       await client.answer_inline_query(iq.id, cache_time=0, results=results)
      
+@nora.on_inline_query(filters.regex("fakegen"))
+async def fakegen(client, iq):
+    try:
+        input = iq.query.split(None, 1)[1]
+    except IndexError:
+        await client.answer_inline_query(iq.id, cache_time=0, results=[], switch_pm_text="Please Give some name to search", switch_pm_parameter="start")
+        return
+    results = []
+    fake = Faker()
+    name = faker.name()
+    fake.add_provider(internet)
+    address = str(fake.address())
+    ip = fake.ipv4_private()
+    cc = fake.credit_card_full()
+    email = fake.ascii_free_email()
+    job = fake.job()
+    
+    text = f"""
+**Generated Fake Data:**
+
+**Name :** __{str(name)}__
+**IP-Address :** __{ip}__
+**Email-ID :** __{email}__
+**Credit-Card :** __{cc}__
+**Job :** __{job}__
+
+**Address :** 
+__{address}__
+"""
+     results.append(
+       InlineQueryResultArticle(
+           title=f"{str(name)}",
+           description=f"IP: {ip}\nEmail: {email}",
+           input_message_content=InputTextMessageContent(text),
+           reply_markup=InlineKeyboardMarkup([
+           [InlineKeyboardButton("Sᴇᴀʀᴄʜ Aɢᴀɪɴ", switch_inline_query_current_chat="fakegen "), InlineKeyboardButton("Sʜᴀʀᴇ-Iᴛ", switch_inline_query="fakegen ")],
+           ])
+     ))
+     await client.answer_inline_query(iq.id, cahce_time=0, results=results)
