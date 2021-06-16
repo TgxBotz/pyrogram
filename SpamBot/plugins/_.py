@@ -591,4 +591,4 @@ __{address}__
            [InlineKeyboardButton("Sᴇᴀʀᴄʜ Aɢᴀɪɴ", switch_inline_query_current_chat="fakegen "), InlineKeyboardButton("Sʜᴀʀᴇ-Iᴛ", switch_inline_query="fakegen ")],
            ])
     ))
-    await client.answer_inline_query(iq.id, cahce_time=0, results=results)
+    await client.answer_inline_query(iq.id, cache_time=0, results=results)
