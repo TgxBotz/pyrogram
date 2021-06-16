@@ -545,7 +545,9 @@ async def anime_search(client, iq):
        ]
        results.append(
          InlineQueryResultPhoto(
-            photo_url=img,
+            title=f"{title}",
+            description="{desc}",
+            photo_url=aurl
             caption=text,
             parse_mode="HTML",
             reply_markup=InlineKeyboardMarkup([keyboard])
