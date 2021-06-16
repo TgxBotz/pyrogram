@@ -64,3 +64,8 @@ I have been added to
          text
        )
        return
+
+@nora.on_message(cmd("hemlo"))
+async def hmkeiej(_, message):
+    await message.reply('Died')
+
