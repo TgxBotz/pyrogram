@@ -3,9 +3,6 @@ from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from pyrogram import filters
 from .. import nora, cmd
 
-keyboard = [
-   InlineKeyboardButton("Verify Me", callback_data="verify")
-]
 
 def cb_wrapper(func):
     @functools.wraps(func)
@@ -17,22 +14,43 @@ def cb_wrapper(func):
           await func(client, cb)
     return callb
 
-def anon_check(func):
+def anon_check(perm):
     @functools.wraps(func)
     async def anon(client, message):
-      if message.sender_chat:
-       await message.reply(
-        "It's looks like you are an Anon Admin\n__Please Click The Below Button for Verifying__",
-        reply_markup=InlineKeyboardMarkup([keyboard])
-       )
-      else:
-         await func(client, message)
+        args = **args
+        keyboard = [
+          InlineKeyboardButton("Verify Me", callback_data=f"verify_{args}")
+        ]
+  
+        text = """
+It looks like you are an
+anon admin!
+__Please Click The Below Button
+"""        
+        if message.sender_chat:
+            await message.reply(text, reply_markup=InlineKeyboardMarkup(
+                [keybaord]
+            )
+        else:
+            await func(client, message)
     return anon
 
-@nora.on_message(filters.regex("verify"))
-async def verfy(client, cb, func, message):
-    ok =  await client.get_chat_member(cb.from_user.id, cb.message.chat.id)
-    if not ok in ("administrator", "creator"):
-       await cb.answer("Only admins can execute this command!")
-       return 
-    await func(client, message)
+
+@nora.on_message(filters.regex("verify_(.*)"))
+async def verify(client, cb):
+     perm = cb.matches[0].group(1)
+     ok = await client.get_chat_member(cb.message.chat.id, cb.from_user.id)
+     if not ok in ("admininstrator", "creator"):
+         await cb.answer(
+             "Only admins can execute this command!",
+             show_alert=True
+         )
+     elif not perms:
+         await cb.answer(
+             "You are missing the following rights to use this command:{perms}",
+             show_alert=True
+        )
+
+     else:
+         pass
+         
