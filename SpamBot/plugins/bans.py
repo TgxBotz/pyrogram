@@ -5,6 +5,7 @@ from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from SpamBot.helpers.wrappers import anon_check
 
 
+
 BANS_TEXT = """
 **✘ Some people need to be publicly banned; spammers, annoyances, or just trolls.**
 
