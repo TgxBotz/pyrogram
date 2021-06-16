@@ -9,6 +9,7 @@ are an anonymous admin
 **Note:** __Please Click
 The Below Button for Verify!__
 """
+
 def cb_wrapper(func):
     @functools.wraps(func)
     async def callb(client, cb):
@@ -20,19 +21,10 @@ def cb_wrapper(func):
     return callb
 
 
-async def anon(user, perm: str, message):
-    keyboard = [
-            InlineKeyboardButton("Verify Me", callback_data=f"verify_{perm}")
-    ]
+async def anon(perm: str, message):    
     if message.sender_chat:
-        await message.reply(
-                text,
-                reply_markup=InlineKeyboardMarkup(
-                    [keyboard]
-             )
-        
-        )
-        return
+        return True
+    return False
 
 def anon_check(**args: str):
     @functools.wraps(func)
