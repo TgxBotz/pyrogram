@@ -3,7 +3,12 @@ from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from pyrogram import filters
 from .. import nora, cmd
 
-
+text = """
+It's looks like you
+are an anonymous admin
+**Note:** __Please Click
+The Below Button for Verify!__
+"""
 def cb_wrapper(func):
     @functools.wraps(func)
     async def callb(client, cb):
@@ -14,27 +19,19 @@ def cb_wrapper(func):
           await func(client, cb)
     return callb
 
-def anon_check(**args):
-    @functools.wraps(func)
-    async def anon(client, message):
-        perm = args.get("perm")
-        keyboard = [
-          InlineKeyboardButton("Verify Me", callback_data=f"verify_{perm}")
-        ]
-  
-        text = """
-It looks like you are an
-anon admin!
-__Please Click The Below Button
-"""        
-        if message.sender_chat:
-            await message.reply(text, reply_markup=InlineKeyboardMarkup(
-                [keybaord]
-              )
-            )
-        else:
-            await func(client, message)
-    return anon
+async def anon(user, perm: str, message):
+    keyboard = [
+            InlineKeyboardButton("Verify Me", callback_data=f"verify_{perm}")
+    ]
+    if message.sender_chat:
+        await message.reply(
+                text,
+                reply_markup=InlineKeyboardMarkup(
+                    [keyboard]
+             )
+        
+        )
+        return
 
 
 @nora.on_message(filters.regex("verify_(.*)"))
