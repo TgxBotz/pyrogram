@@ -559,14 +559,10 @@ async def anime_search(client, iq):
      
 @nora.on_inline_query(filters.regex("fakegen"))
 async def fakegen(client, iq):
-    try:
-        input = iq.query.split(None, 1)[1]
-    except IndexError:
-        await client.answer_inline_query(iq.id, cache_time=0, results=[], switch_pm_text="Please Give some name to search", switch_pm_parameter="start")
-        return
+
     results = []
     fake = Faker()
-    name = faker.name()
+    name = fake.name()
     fake.add_provider(internet)
     address = str(fake.address())
     ip = fake.ipv4_private()
