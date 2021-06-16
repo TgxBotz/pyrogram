@@ -14,6 +14,7 @@ from random import choice
 import string
 from tpblite import TPB
 import json
+from . import MEDIA_QUERY
 
 wdb = TinyDB("SpamBot/helpers/secret.json")
 
@@ -501,3 +502,53 @@ async def country(client, iq):
      ])
      ))]
     await client.answer_inline_query(iq.id, results=dn)
+
+@nora.on_inline_query(filters.regex("anime"))
+async def anime_search(client, iq):
+    try:
+        input = iq.query.split(" ", maxsplit=1)[1]
+    except IndexError:
+        await client.answer_inline_query(iq.id, cache_time=0, results=[], switch_pm_text="Please Give some name to search", switch_pm_parameter="start")
+        return
+    results = []
+    req = requests.post('https://graphql.anilist.co',
+                          data=json.dumps({'query': MEDIA_QUERY, 'variables': {'search': input}}),
+                          headers={'Content-Type': 'application/json', 'Accept': 'application/json'})
+    res = req.json()
+    dat = res['data']['Page']['media']
+    for data in dat:
+       title = data.get("title").get("english")
+       type = data.get("type")
+       format = data.get("format")
+       imgg = data.get("bannerImage")
+       desc = data.get("description")
+       avgsc = data.get("averageScore") 
+       status = data.get("status") 
+       genres = data.get("genres") 
+       img = f"https://img.anili.st/media/{data['id']}"
+       aurl = data.get("siteUrl")
+       text = f"""
+<b> {title} </b>
+
+<b>Type :</b> <i>{type}</i>
+<b>Format :</b> <i>{format}</i>
+<b>Average Score :</b> <i>{avgsc}</i>
+<b>Status :</b> <i>{status}</i>
+<b>Generes :</b> <i>{generes}</i>
+
+<b>Description :</b>
+<i>{desc}</i>
+"""
+       keyboard = [
+        InlineKeyboardButton("Sᴇᴀʀᴄʜ Aɢᴀɪɴ", switch_inline_query_current_chat="anime"), InlineKeyboardButton("Sʜᴀʀᴇ-Iᴛ", switch_inline_query=f"anime {input}")],
+        [InlineKeyboardButton("WᴇʙSɪᴛᴇ-Uʀʟ", url=aurl)
+       ]
+       results.append(
+         InlineQueryResultPhoto(
+            photo_url=img,
+            caption=text,
+            parse_mode="HTML",
+            reply_markup=InlineKeyboardMarkup([keyboard])
+         )
+       )
+     
