@@ -549,7 +549,6 @@ async def anime_search(client, iq):
             description="{desc}",
             thumb_url=img,
             input_message_content=InputTextMessageContent(text),
-            parse_mode="HTML",
             reply_markup=InlineKeyboardMarkup([keyboard])
          )
        )
