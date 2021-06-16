@@ -14,7 +14,7 @@ def cb_wrapper(func):
           await func(client, cb)
     return callb
 
-def anon_check(**args):
+def anon_check(**args: str):
     @functools.wraps(func)
     async def anon(client, message):
         perm = args.get("perm")
