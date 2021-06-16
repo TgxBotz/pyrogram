@@ -2,6 +2,8 @@ from SpamBot.helpers.admins import adminsOnly, selfadmin, admind_res
 from .. import *
 from pyrogram import filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
+from SpamBot.helpers.wrappers import anon_check
+
 
 BANS_TEXT = """
 **✘ Some people need to be publicly banned; spammers, annoyances, or just trolls.**
@@ -28,6 +30,7 @@ async def _(client, cb):
 @nora.on_message(cmd("ban") & filters.group)
 @adminsOnly
 @selfadmin
+@anon_check("can_restrict_members")
 async def ban(perm, message):
     if not perm.can_restrict_members:
        await message.reply("You are missing the following rights to use this cmd:CanBanUsers")
