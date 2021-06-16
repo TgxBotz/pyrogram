@@ -29,7 +29,6 @@ async def _(client, cb):
 
 
 @nora.on_message(cmd("ban") & filters.group)
-@adminsOnly
 @selfadmin
 async def ban(perm, message):
     if not perm.can_restrict_members:
