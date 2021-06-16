@@ -586,7 +586,7 @@ async def fakegen(client, iq):
 **Address :** 
 __{address}__
 """
-     results.append(
+    results.append(
        InlineQueryResultArticle(
            title=f"{str(name)}",
            description=f"IP: {ip}\nEmail: {email}",
@@ -594,5 +594,5 @@ __{address}__
            reply_markup=InlineKeyboardMarkup([
            [InlineKeyboardButton("Sᴇᴀʀᴄʜ Aɢᴀɪɴ", switch_inline_query_current_chat="fakegen "), InlineKeyboardButton("Sʜᴀʀᴇ-Iᴛ", switch_inline_query="fakegen ")],
            ])
-     ))
-     await client.answer_inline_query(iq.id, cahce_time=0, results=results)
+    ))
+    await client.answer_inline_query(iq.id, cahce_time=0, results=results)
