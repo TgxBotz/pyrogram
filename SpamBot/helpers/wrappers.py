@@ -30,6 +30,7 @@ __Please Click The Below Button
         if message.sender_chat:
             await message.reply(text, reply_markup=InlineKeyboardMarkup(
                 [keybaord]
+              )
             )
         else:
             await func(client, message)
