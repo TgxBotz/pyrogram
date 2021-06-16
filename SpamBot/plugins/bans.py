@@ -31,7 +31,6 @@ async def _(client, cb):
 @nora.on_message(cmd("ban") & filters.group)
 @adminsOnly
 @selfadmin
-@anon_check()
 async def ban(perm, message):
     if not perm.can_restrict_members:
        await message.reply("You are missing the following rights to use this cmd:CanBanUsers")
