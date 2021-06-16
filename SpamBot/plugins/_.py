@@ -544,11 +544,11 @@ async def anime_search(client, iq):
        [InlineKeyboardButton("WᴇʙSɪᴛᴇ-Uʀʟ", url=aurl)
        ]
        results.append(
-         InlineQueryResultPhoto(
+         InlineQueryResultArticle(
             title=f"{title}",
             description="{desc}",
-            photo_url=aurl,
-            caption=text,
+            thumb_url=img,
+            input_message_content=InputTextMessageContent(text),
             parse_mode="HTML",
             reply_markup=InlineKeyboardMarkup([keyboard])
          )
