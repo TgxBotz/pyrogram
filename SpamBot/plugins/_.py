@@ -540,8 +540,8 @@ async def anime_search(client, iq):
 <i>{desc}</i>
 """
        keyboard = [
-        InlineKeyboardButton("Sᴇᴀʀᴄʜ Aɢᴀɪɴ", switch_inline_query_current_chat="anime"), InlineKeyboardButton("Sʜᴀʀᴇ-Iᴛ", switch_inline_query=f"anime {input}")],
-        [InlineKeyboardButton("WᴇʙSɪᴛᴇ-Uʀʟ", url=aurl)
+       InlineKeyboardButton("Sᴇᴀʀᴄʜ Aɢᴀɪɴ", switch_inline_query_current_chat="anime"), InlineKeyboardButton("Sʜᴀʀᴇ-Iᴛ", switch_inline_query=f"anime {input}")],
+       [InlineKeyboardButton("WᴇʙSɪᴛᴇ-Uʀʟ", url=aurl)
        ]
        results.append(
          InlineQueryResultPhoto(
