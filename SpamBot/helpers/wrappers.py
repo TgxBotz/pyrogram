@@ -14,11 +14,12 @@ def cb_wrapper(func):
           await func(client, cb)
     return callb
 
-def anon_check(perm):
+def anon_check(**args):
     @functools.wraps(func)
     async def anon(client, message):
+        perm = args.get("perm")
         keyboard = [
-          InlineKeyboardButton("Verify Me", callback_data=f"verify_{**args}")
+          InlineKeyboardButton("Verify Me", callback_data=f"verify_{perm}")
         ]
   
         text = """
