@@ -534,7 +534,7 @@ async def anime_search(client, iq):
 <b>Format :</b> <i>{format}</i>
 <b>Average Score :</b> <i>{avgsc}</i>
 <b>Status :</b> <i>{status}</i>
-<b>Generes :</b> <i>{generes}</i>
+<b>Generes :</b> <i>{genres}</i>
 
 <b>Description :</b>
 <i>{desc}</i>
