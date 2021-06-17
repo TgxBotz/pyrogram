@@ -17,7 +17,7 @@ def cb_wrapper(func):
     async def callb(client, cb):
       user_s = user.update({"user": cb.from_user.id})
       check = user["user"]
-      if cb.from_user.id != user:
+      if cb.from_user.id == user:
           await cb.answer("This Menu Wasn't Opened By You!")
       else:
           await func(client, cb)
