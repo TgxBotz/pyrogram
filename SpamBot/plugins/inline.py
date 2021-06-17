@@ -67,7 +67,7 @@ btn2 = [
 
 btn3 = [
     [InlineKeyboardButton("Usᴇʀ-Iɴғᴏ", switch_inline_query_current_chat="whois "), InlineKeyboardButton("Sᴇɴᴅ Wʜɪsᴘᴇʀ", switch_inline_query_current_chat="whisper ")],
-    [InlineKeyboardButton("Fᴀᴋᴇ Dᴀᴛᴀ-Gᴇɴ", switch_inline_query_current_chat="fakegeb")],
+    [InlineKeyboardButton("Fᴀᴋᴇ Dᴀᴛᴀ-Gᴇɴ", switch_inline_query_current_chat="fakegen")],
     [InlineKeyboardButton("« Previous", callback_data="nex"), InlineKeyboardButton("Next »", callback_data="inline")]
     ]
 
