@@ -1,7 +1,7 @@
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from SpamBot import *
 import os
-from SpamBot.helpers.admins import adminsOnly, selfadmin
+from SpamBot.helpers.admins import adminsOnly, selfadmin, anon_check
 from pyrogram import filters
 
 @nora.on_callback_query(filters.regex("admin"))
@@ -38,6 +38,7 @@ async def botlist(_, message):
     await message.reply(text)
 
 @nora.on_message(cmd("setgpic") & filters.group)
+@anon_check(perm="can_change_info")
 @selfadmin
 @adminsOnly
 async def setgpic(perm, message):
