@@ -2,7 +2,7 @@
 
 from pyrogram import filters
 from .. import arq, nora
-
+import os
 
 async def get_file_id_from_message(message):
     file_id = None
@@ -60,7 +60,7 @@ async def detection(client, message):
     if not results.ok:
         return
     results = results.result
-    remove(file)
+    os.remove(file)
     nsfw = results.is_nsfw
     if not nsfw:
         return
