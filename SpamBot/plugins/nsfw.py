@@ -66,9 +66,17 @@ async def detection(client, message):
         return
     try:
         await message.delete()
+        await nora.restrict_chat_member(message.chat.id, message.from_user.id, int(time() + 3600))
     except Exception:
         return
+    text = f"""
+**Detected NSFW Content:**
+
+**User:** {message.from_user.mention}
+**Porn:** `{results.porn}`
+**Action:** __Muted For 1 Hour!__
+"""
     await message.reply_text(
-            "its an nsfw"
+            text
     )
 
