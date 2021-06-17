@@ -18,8 +18,15 @@ WLC_TEXT = """
 <b>Hi</b> <b><a href="tg://user?id={}">{}</a></b>
 Welcome to {}!
 Here you can do Masti/Spam/Etc.
-<b>Read</b> <b><a href="t.me/NoraFatehiBot?start=Rules">Rules</a> to avoid bans and dont spam!</b>
+<b>Read</b> <b><a href="t.me/NoraFatehiBot?start=rules">Rules</a> to avoid bans and dont spam!</b>
 <b>Click the below button for unmuting yourself!</b>
+"""
+
+WLC_TEXTN = """
+<b>Hi</b> <b><a href="tg://user?id={}">{}</a></b>
+Welcome to {}!
+Here you can do Masti/Spam/Etc.
+<b>Read</b> <b><a href="t.me/NoraFatehiBot?start=rules">Rules</a> to avoid bans and dont spam!</b>
 """
 
 @nora.on_message(filters.new_chat_members)
@@ -46,3 +53,12 @@ async def welcome_mute(client, cb):
         return
     await nora.unban_chat_member(cb.message.chat.id, user_s)
     await cb.answer("Succesfully Unmuted!", show_alert=True)
+    await cb.edit_message_text(
+     WLC_TEXT.format(
+      message.from_user.id,
+      message.from_user.first_name,
+      message.chat.title,
+     ),
+     disable_web_page_preview=True,
+     parse_mode="HTML",
+     )
