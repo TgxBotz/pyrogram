@@ -1,4 +1,6 @@
+aiohttp
 tinydb>=4.4.0
+python-arq
 pyrogram
 telethon
 TgCrypto
