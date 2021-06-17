@@ -95,12 +95,12 @@ async def msdw(_, message):
                 f"**Current Group Nsfw Setting Is:** `{is_en}`"
         )
     inp = message.text.split(None, 1)[1]
-    if inp == ("enable", "on"):
+    if inp == "enable":
         await nsfw_on(message.chat.id)
         await message.reply(
                 "I have enabled Nsfw Detection System for this chat!"
         )
-    elif inp == ("disable", "off"):
+    elif inp == "disable":
         await nsfw_off(message.chat.id)
         await message.reply(
                 "I have disabled Nsfw Detection System for this chat!"
