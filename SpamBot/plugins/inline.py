@@ -82,7 +82,7 @@ async def inline(client, iq):
      thumb_url="https://telegra.ph//file/f81da799a4ad11aea8d1d.jpg",
      input_message_content=InputTextMessageContent(ABOUT),
      reply_markup=InlineKeyboardMarkup([
-     [InlineKeyboardButton("Hᴇʟᴘ-Mᴇɴᴜ", callback_data="menu")]
+     [InlineKeyboardButton("Hᴇʟᴘ-Mᴇɴᴜ", callback_data=f"menu_{user}")]
      ])
     ))
 
