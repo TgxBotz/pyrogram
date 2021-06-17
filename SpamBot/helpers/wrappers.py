@@ -43,7 +43,7 @@ def anon_check(func):
         return True
       return False
 
-def anon_check(**args: str):
+def anon_check(func):
     @functools.wraps(func)
     async def anon(*args, message):
         perm = args.get("perm")
