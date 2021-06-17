@@ -22,7 +22,7 @@ def cb_wrapper(func):
     return callb
 
 
-<<<<<<< HEAD
+
 async def anon(user, perm: str, message):
     keyboard = [
             InlineKeyboardButton("Verify Me", callback_data=f"verify_{perm}")
@@ -38,14 +38,13 @@ async def anon(user, perm: str, message):
         return
 
 def anon_check(func):
-=======
+
 async def anon(perm: str, message):    
     if message.sender_chat:
         return True
     return False
 
 def anon_check(**args: str):
->>>>>>> 6b5953ee391651638db162e579d73e0f3e2ff39e
     @functools.wraps(func)
     async def anon(*args, message):
         perm = args.get("perm")
@@ -66,10 +65,6 @@ __Please Click The Below Button
         else:
             await func(client, message)
     return anon
-<<<<<<< HEAD
-
-=======
->>>>>>> 6b5953ee391651638db162e579d73e0f3e2ff39e
 
 @nora.on_message(filters.regex("verify_(.*)"))
 async def verify(client, cb):
