@@ -39,7 +39,7 @@ async def botlist(_, message):
     await message.reply(text)
 
 @nora.on_message(cmd("setgpic") & filters.group)
-@anon_check(perm="can_change_info")
+@anon_check("can_change_info")
 @selfadmin
 @adminsOnly
 async def setgpic(perm, message):
