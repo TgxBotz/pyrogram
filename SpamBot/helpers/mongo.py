@@ -95,3 +95,4 @@ async def is_night_chat_in_db(chat_id):
         return True
     else:
         return False
+    

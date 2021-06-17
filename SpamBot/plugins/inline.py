@@ -66,7 +66,8 @@ btn2 = [
     ]
 
 btn3 = [
-    [InlineKeyboardButton("Usᴇʀ-Iɴғᴏ", switch_inline_query="whois "), InlineKeyboardButton("Sᴇɴᴅ Wʜɪsᴘᴇʀ", switch_inline_query_current_chat="whisper ")],
+    [InlineKeyboardButton("Usᴇʀ-Iɴғᴏ", switch_inline_query_current_chat="whois "), InlineKeyboardButton("Sᴇɴᴅ Wʜɪsᴘᴇʀ", switch_inline_query_current_chat="whisper ")],
+    [InlineKeyboardButton("Fᴀᴋᴇ Dᴀᴛᴀ-Gᴇɴ", switch_inline_query_current_chat="fakegeb")],
     [InlineKeyboardButton("« Previous", callback_data="nex"), InlineKeyboardButton("Next »", callback_data="inline")]
     ]
 
@@ -111,6 +112,7 @@ async def inline(_, message):
 @nora.on_callback_query(filters.regex("menu"))
 @cb_wrapper
 async def ex(client, cb):
+    await cb.answer()
     await cb.edit_message_text(
       HELPN,
       parse_mode="HTML",
@@ -120,6 +122,7 @@ async def ex(client, cb):
 @nora.on_callback_query(filters.regex("ext"))
 @cb_wrapper
 async def ext(client, cb):
+    await cb.answer()
     await cb.edit_message_text(
       EX,
       reply_markup=InlineKeyboardMarkup([
@@ -129,6 +132,7 @@ async def ext(client, cb):
 @nora.on_callback_query(filters.regex("inline"))
 @cb_wrapper
 async def inline(client, cb):
+    await cb.answer()
     await cb.edit_message_text(
      "**Inline Help Menu:**",
      reply_markup=InlineKeyboardMarkup(btn1)
@@ -137,6 +141,7 @@ async def inline(client, cb):
 @nora.on_callback_query(filters.regex("nex"))
 @cb_wrapper
 async def nex(client, cb):
+    await cb.answer()
     await cb.edit_message_text("**Inline Menu:**",
      reply_markup=InlineKeyboardMarkup(btn2)
     )
@@ -144,6 +149,7 @@ async def nex(client, cb):
 
 @nora.on_callback_query(filters.regex("last"))
 async def lasst(client, cb):
+     await cb.answer()
      await cb.edit_message_text(
       "**Inline HelpMenu**",
       reply_markup=InlineKeyboardMarkup(btn3)
