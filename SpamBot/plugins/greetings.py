@@ -22,11 +22,10 @@ Here you can do Masti/Spam/Etc.
 <b>Click the below button for unmuting yourself!</b>
 """
 
-user = {}
-
 @nora.on_message(filters.new_chat_members)
 async def welcome(client, message):
-    await client.restrict_chat_member(message.chat.id, message.from_user.id, ChatPermissions(can_send_messages=False))
+    user = message.from_user.id
+    await client.restrict_chat_member(message.chat.id, message.from_user.id, ChatPermissions())
     await message.reply(
     WLC_TEXT.format(
       message.from_user.id,
@@ -36,14 +35,14 @@ async def welcome(client, message):
     parse_mode="HTML",
     disable_web_page_preview=True,
     reply_markup=InlineKeyboardMarkup([
-    [InlineKeyboardButton("Click Here To Unmute", callback_data="welcome")]
+    [InlineKeyboardButton("Click Here To Unmute", callback_data=f"welcome_{user}")]
     ]))
-    user.update({"user": message.from_user.id})
- 
-@nora.on_callback_query(filters.regex("welcome"))
+    
+@nora.on_callback_query(filters.regex("welcome_(.*)"))
 async def welcome_mute(client, cb):
-    user_s = user["user"]
+    user_s = cb.matches[0].group(1)
     if cb.from_user.id != user_s:
         await cb.answer("This captcha isn't for you!", show_alert=True)
         return
     await nora.unban_chat_member(message.chat.id, user_s)
+    await cb.answer("Succesfully Unmuted!", show_alert=True)
