@@ -3,6 +3,7 @@
 from pyrogram import filters
 from .. import arq, nora
 import os
+from time import time
 
 async def get_file_id_from_message(message):
     file_id = None
