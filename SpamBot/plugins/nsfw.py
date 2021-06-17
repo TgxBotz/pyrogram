@@ -1,10 +1,12 @@
 """ Hemlo Unkils! """
 
 from pyrogram import filters
-from .. import arq, nora
+from .. import arq, nora, cmd
 import os
 from time import time
 from pyrogram.types import ChatPermissions
+from SpamBot.helpers.admins import adminsOnly
+from SpamBot.helpers.mongo import is_nsfw_on, nsfw_on, nsfw_off
 
 async def get_file_id_from_message(message):
     file_id = None
@@ -84,3 +86,26 @@ async def detection(client, message):
             text
     )
 
+@nora.on_message(cmd("nsfwscan"))
+@adminsOnly
+async def msdw(_, message):
+    is_en = await is_nsfw_on(message.chat.id)
+    if len(message.command) == 1:
+        await message.reply(
+                f"**Current Group Nsfw Setting Is:** `{is_en}`"
+        )
+    inp = message.text.split(None, 1)[1]
+    if ("enable", "on") in inp:
+        await nsfw_on(message.chat.id)
+        await message.reply(
+                "I have enabled Nsfw Detection System for this chat!"
+        )
+    elif ("disable", "off") in inp:
+        await nsfw_off(message.chat.id)
+        await message.reply(
+                "I have disabled Nsfw Detection System for this chat!"
+        )
+    else:
+        await message.reply(
+                f"Invalid Option\n**Current Setting is `{is_en}`!"
+        )
