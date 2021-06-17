@@ -40,7 +40,7 @@ async def welcome(client, message):
     
 @nora.on_callback_query(filters.regex("welcome_(.*)"))
 async def welcome_mute(client, cb):
-    user_s = cb.matches[0].group(1)
+    user_s = int(cb.matches[0].group(1))
     if cb.from_user.id != user_s:
         await cb.answer("This captcha isn't for you!", show_alert=True)
         return
