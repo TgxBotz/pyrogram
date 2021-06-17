@@ -153,6 +153,7 @@ async def inline(client, cb):
     [InlineKeyboardButton("Lʏʀɪᴄs Sᴇᴀʀᴄʜ", switch_inline_query_current_chat="lyrics "), InlineKeyboardButton("Cᴏᴠɪᴅ Sᴇᴀʀᴄʜ", switch_inline_query_current_chat="covid ")],
     [InlineKeyboardButton("Bɪɴ-Cʜᴇᴄᴋᴇʀ", switch_inline_query_current_chat="bin "), InlineKeyboardButton("Uʀʙᴀɴ-Dɪᴄᴛɪᴏɴᴀʀʏ", switch_inline_query_current_chat="ud ")],
     [InlineKeyboardButton("« Previous", callback_data=f"last_{cb.from_user.id}"), InlineKeyboardButton("Next »", callback_data=f"nex_{cb.from_user.id}")]
+    ]
     await cb.answer()
     await cb.edit_message_text(
      "**Inline Help Menu:**",
