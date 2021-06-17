@@ -4,6 +4,7 @@ from pyrogram import filters
 from .. import arq, nora
 import os
 from time import time
+from pyrogram.types import ChatPermissions
 
 async def get_file_id_from_message(message):
     file_id = None
@@ -67,7 +68,7 @@ async def detection(client, message):
         return
     try:
         await message.delete()
-        await nora.restrict_chat_member(message.chat.id, message.from_user.id, int(time() + 3600))
+        await nora.restrict_chat_member(message.chat.id, message.from_user.id, ChatPermissions(), int(time() + 3600))
     except BaseException as be:
         await message.reply(f"**Error:** `{be}`")
         return
