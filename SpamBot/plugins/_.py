@@ -189,6 +189,7 @@ see this msg!__
     dn = [(InlineQueryResultArticle(
      title=f"A Whisper To {ui.first_name}",
      description="A Secret Msg!!!",
+     thumb_url="https://telegra.ph//file/c0e8b5dc5dfc3e3dd6abc.jpg",
      input_message_content=InputTextMessageContent(text),
      reply_markup=InlineKeyboardMarkup([
      [InlineKeyboardButton("Show Message!", callback_data=f"sm_{randomc}")]
