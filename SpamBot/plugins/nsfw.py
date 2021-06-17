@@ -52,7 +52,7 @@ async def detection(client, message):
     file_id = await get_file_id_from_message(message)
     if not file_id:
         return
-    file = await app.download_media(file_id)
+    file = await nora.download_media(file_id)
     try:
         results = await arq.nsfw_scan(file=file)
     except Exception:
