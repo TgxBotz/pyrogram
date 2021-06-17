@@ -185,13 +185,13 @@ async def lasst(client, cb):
     if cb.from_user.id != user:
         await cb.answer("This menu wasnt opened by you\n#Phuck_Aff", show_alert=True)          
         return
-     btn3 = [
+    btn3 = [
      [InlineKeyboardButton("Usᴇʀ-Iɴғᴏ", switch_inline_query_current_chat="whois "), InlineKeyboardButton("Sᴇɴᴅ Wʜɪsᴘᴇʀ", switch_inline_query_current_chat="whisper ")],
      [InlineKeyboardButton("Fᴀᴋᴇ Dᴀᴛᴀ-Gᴇɴ", switch_inline_query_current_chat="fakegen")],
      [InlineKeyboardButton("« Previous", callback_data=f"nex_{cb.from_user.id}"), InlineKeyboardButton("Next »", callback_data=f"inline_{cb.from_user.id}")]
-     ]
-     await cb.answer()
-     await cb.edit_message_text(
+    ]
+    await cb.answer()
+    await cb.edit_message_text(
       "**Inline HelpMenu**",
       reply_markup=InlineKeyboardMarkup(btn3)
     )
