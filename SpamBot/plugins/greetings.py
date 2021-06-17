@@ -25,7 +25,7 @@ Here you can do Masti/Spam/Etc.
 @nora.on_message(filters.new_chat_members)
 async def welcome(client, message):
     user = message.from_user.id
-    await client.restrict_chat_member(message.chat.id, message.from_user.id, ChatPermissions())
+    await nora.restrict_chat_member(message.chat.id, message.from_user.id, ChatPermissions())
     await message.reply(
     WLC_TEXT.format(
       message.from_user.id,
