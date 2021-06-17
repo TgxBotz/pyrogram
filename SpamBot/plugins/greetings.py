@@ -55,9 +55,9 @@ async def welcome_mute(client, cb):
     await cb.answer("Succesfully Unmuted!", show_alert=True)
     await cb.edit_message_text(
      WLC_TEXT.format(
-      message.from_user.id,
-      message.from_user.first_name,
-      message.chat.title,
+      cb.from_user.id,
+      cb.from_user.first_name,
+      cb.message.chat.title,
      ),
      disable_web_page_preview=True,
      parse_mode="HTML",
