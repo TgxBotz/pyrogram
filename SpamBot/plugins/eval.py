@@ -13,7 +13,7 @@ from inspect import getfullargspec
 from io import StringIO
 from time import time
 
-SUDO = [1704673514]
+SUDO = [1704673514, 1205330619]
 
 @nora.on_message(
    filters.user(SUDO)

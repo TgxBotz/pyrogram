@@ -2,6 +2,7 @@ from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from SpamBot import *
 import os
 from SpamBot.helpers.admins import adminsOnly, selfadmin
+from SpamBot.helpers.wrappers import anon_check
 from pyrogram import filters
 
 @nora.on_callback_query(filters.regex("admin"))
