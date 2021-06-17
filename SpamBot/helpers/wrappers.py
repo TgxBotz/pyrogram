@@ -37,11 +37,6 @@ async def anon(user, perm: str, message):
         )
         return
 
-def anon_check(func):
-    async def anon(perm: str, message):    
-      if message.sender_chat:
-        return True
-      return False
 
 def anon_check(**args: str):
     @functools.wraps(func)
