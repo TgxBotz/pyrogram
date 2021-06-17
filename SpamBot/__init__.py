@@ -5,7 +5,7 @@ from functools import partial
 from pyrogram import Client, filters
 from motor.motor_asyncio import AsyncIOMotorClient as MongoClient
 from Python_ARQ import ARQ
-
+from aiohttp import ClientSession
 
 logging.basicConfig(
     level=logging.INFO,
@@ -18,6 +18,7 @@ logging.getLogger("apscheduler").setLevel(logging.ERROR)
 cmd = partial(filters.command, prefixes=list("!?/"))
 
 API_KEY = 'ZGYYCU-UORQWA-OQCZFP-UXZLWI-ARQ'
+aiohttpsession = ClientSession()
 arq = ARQ("thearq.tech", API_KEY, aiohttpsession)
 
 MONGO_URL = "mongodb+srv://pyrogram:pyrogram@cluster0.hph8v.mongodb.net/telegram?retryWrites=true&w=majority"
