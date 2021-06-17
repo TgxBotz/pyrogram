@@ -44,10 +44,6 @@ EX = """
 <b>Support -</b> @TgxSupportChat
 """
 
-btn = [
-    [InlineKeyboardButton("Exᴛʀᴀ-Cᴍᴅs", callback_data="ext"), InlineKeyboardButton("Iɴʟɪɴᴇ-Mᴇɴᴜ", callback_data="inline")],
-    [InlineKeyboardButton("Gʀᴏᴜᴘ-Hᴇʟᴘ Cᴍᴅs", url="t.me/NoraFatehiBot?start=start")]
-    ]
 
 btn1 = [
    [InlineKeyboardButton("Gᴏᴏɢʟᴇ Sᴇᴀʀᴄʜ", switch_inline_query_current_chat="gg "), InlineKeyboardButton("YᴏᴜTᴜʙᴇ Sᴇᴀʀᴄʜ", switch_inline_query_current_chat="yt ")],
@@ -68,12 +64,16 @@ btn2 = [
 btn3 = [
     [InlineKeyboardButton("Usᴇʀ-Iɴғᴏ", switch_inline_query_current_chat="whois "), InlineKeyboardButton("Sᴇɴᴅ Wʜɪsᴘᴇʀ", switch_inline_query_current_chat="whisper ")],
     [InlineKeyboardButton("Fᴀᴋᴇ Dᴀᴛᴀ-Gᴇɴ", switch_inline_query_current_chat="fakegen")],
-    [InlineKeyboardButton("« Previous", callback_data="nex"), InlineKeyboardButton("Next »", callback_data="inline")]
-    ]
+    [InlineKeyboardButton("« Previous", callback_data="nex"), InlineKeyboardButton("Next »", callback_data="inline")]]
 
 
 @nora.on_inline_query()
 async def inline(client, iq):
+    user = iq.from_user.id
+    btn = [
+    [InlineKeyboardButton("Exᴛʀᴀ-Cᴍᴅs", callback_data=f"ext_{user}"), InlineKeyboardButton("Iɴʟɪɴᴇ-Mᴇɴᴜ", callback_data=f"inline_{user}")],
+    [InlineKeyboardButton("Gʀᴏᴜᴘ-Hᴇʟᴘ Cᴍᴅs", url="t.me/NoraFatehiBot?start=start")
+    ]
     if len(iq.query) != 0: 
         return 
     alive = (InlineQueryResultArticle(
@@ -109,9 +109,16 @@ async def inline(_, message):
       reply_markup=InlineKeyboardMarkup(btn1)
     ) 
        
-@nora.on_callback_query(filters.regex("menu"))
-@cb_wrapper
+@nora.on_callback_query(filters.regex("menu_(.*)"))
 async def ex(client, cb):
+    btn = [
+    [InlineKeyboardButton("Exᴛʀᴀ-Cᴍᴅs", callback_data=f"ext_{cb.from_user.id}"), InlineKeyboardButton("Iɴʟɪɴᴇ-Mᴇɴᴜ", callback_data=f"inline_{cb.from_user.id}")],
+    [InlineKeyboardButton("Gʀᴏᴜᴘ-Hᴇʟᴘ Cᴍᴅs", url="t.me/NoraFatehiBot?start=start")
+    ]
+  
+    user = int(cb.matches[0].group(1))
+    if cb.from_user.id != user:
+        await cb.answer("This menu wasnt opened by you\n#Phuck_Aff", show_alert=True)           return
     await cb.answer()
     await cb.edit_message_text(
       HELPN,
@@ -119,28 +126,42 @@ async def ex(client, cb):
       reply_markup=InlineKeyboardMarkup(btn)
     )
 
-@nora.on_callback_query(filters.regex("ext"))
-@cb_wrapper
+@nora.on_callback_query(filters.regex("ext_(.*)"))
 async def ext(client, cb):
+    user = int(cb.matches[0].group(1))
+    if cb.from_user.id != user:
+        await cb.answer("This menu wasnt opened by you\n#Phuck_Aff", show_alert=True)
+        return
+
     await cb.answer()
     await cb.edit_message_text(
       EX,
       reply_markup=InlineKeyboardMarkup([
-      [InlineKeyboardButton("« Bᴀᴄᴋ", callback_data="menu")]
+      [InlineKeyboardButton("« Bᴀᴄᴋ", callback_data=f"menu_{cb.from_user.id}")]
       ]))
 
-@nora.on_callback_query(filters.regex("inline"))
-@cb_wrapper
+@nora.on_callback_query(filters.regex("inline_(.*)"))
 async def inline(client, cb):
+    user = int(cb.matches[0].group(1))
+    if cb.from_user.id != user:
+        await cb.answer("This menu wasnt opened by you\n#Phuck_Aff", show_alert=True)           return
+    btn1 = [
+    [InlineKeyboardButton("Gᴏᴏɢʟᴇ Sᴇᴀʀᴄʜ", switch_inline_query_current_chat="gg "), InlineKeyboardButton("YᴏᴜTᴜʙᴇ Sᴇᴀʀᴄʜ", switch_inline_query_current_chat="yt ")],
+    [InlineKeyboardButton("GɪᴛHᴜʙ Sᴇᴀʀᴄʜ", switch_inline_query_current_chat="github "), InlineKeyboardButton("PʟᴀʏSᴛᴏʀᴇ Sᴇᴀʀᴄʜ", switch_inline_query_current_chat="app ")],
+    [InlineKeyboardButton("Lʏʀɪᴄs Sᴇᴀʀᴄʜ", switch_inline_query_current_chat="lyrics "), InlineKeyboardButton("Cᴏᴠɪᴅ Sᴇᴀʀᴄʜ", switch_inline_query_current_chat="covid ")],
+    [InlineKeyboardButton("Bɪɴ-Cʜᴇᴄᴋᴇʀ", switch_inline_query_current_chat="bin "), InlineKeyboardButton("Uʀʙᴀɴ-Dɪᴄᴛɪᴏɴᴀʀʏ", switch_inline_query_current_chat="ud ")],
+    [InlineKeyboardButton("« Previous", callback_data=f"last_{cb.from_user.id}"), InlineKeyboardButton("Next »", callback_data=f"nex_{cb.from_user.id}")]
     await cb.answer()
     await cb.edit_message_text(
      "**Inline Help Menu:**",
      reply_markup=InlineKeyboardMarkup(btn1)
     )
 
-@nora.on_callback_query(filters.regex("nex"))
-@cb_wrapper
+@nora.on_callback_query(filters.regex("nex_(.*)"))
 async def nex(client, cb):
+    user = int(cb.matches[0].group(1))
+    if cb.from_user.id != user:
+        await cb.answer("This menu wasnt opened by you\n#Phuck_Aff", show_alert=True)           return
     await cb.answer()
     await cb.edit_message_text("**Inline Menu:**",
      reply_markup=InlineKeyboardMarkup(btn2)
@@ -149,6 +170,11 @@ async def nex(client, cb):
 
 @nora.on_callback_query(filters.regex("last"))
 async def lasst(client, cb):
+     btn3 = [
+     [InlineKeyboardButton("Usᴇʀ-Iɴғᴏ", switch_inline_query_current_chat="whois "), InlineKeyboardButton("Sᴇɴᴅ Wʜɪsᴘᴇʀ", switch_inline_query_current_chat="whisper ")],
+     [InlineKeyboardButton("Fᴀᴋᴇ Dᴀᴛᴀ-Gᴇɴ", switch_inline_query_current_chat="fakegen")],
+     [InlineKeyboardButton("« Previous", callback_data=f"nex_{cb.from_user.id}"), InlineKeyboardButton("Next »", callback_data=f"inline_{cb.from_user.id}")]
+     ]
      await cb.answer()
      await cb.edit_message_text(
       "**Inline HelpMenu**",
