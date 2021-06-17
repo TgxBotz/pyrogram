@@ -44,5 +44,5 @@ async def welcome_mute(client, cb):
     if cb.from_user.id != user_s:
         await cb.answer("This captcha isn't for you!", show_alert=True)
         return
-    await nora.unban_chat_member(message.chat.id, user_s)
+    await nora.unban_chat_member(cb.message.chat.id, user_s)
     await cb.answer("Succesfully Unmuted!", show_alert=True)
