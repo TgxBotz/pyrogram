@@ -1,5 +1,5 @@
 tinydb>=4.4.0
-git+https://github.com/pyrogram/pyrogram
+pyrogram
 telethon
 TgCrypto
 motor
