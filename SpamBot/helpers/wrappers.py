@@ -11,10 +11,12 @@ are an anonymous admin
 The Below Button for Verify!__
 """
 
+user = {}
 def cb_wrapper(func):
     @functools.wraps(func)
     async def callb(client, cb):
-      user = cb.from_user.id
+      user_s = user.update({"user": cb.from_user.id})
+      check = user["user"]
       if cb.from_user.id != user:
           await cb.answer("This Menu Wasn't Opened By You!")
       else:
