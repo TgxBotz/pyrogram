@@ -72,7 +72,7 @@ async def inline(client, iq):
     user = iq.from_user.id
     btn = [
     [InlineKeyboardButton("Exᴛʀᴀ-Cᴍᴅs", callback_data=f"ext_{user}"), InlineKeyboardButton("Iɴʟɪɴᴇ-Mᴇɴᴜ", callback_data=f"inline_{user}")],
-    [InlineKeyboardButton("Gʀᴏᴜᴘ-Hᴇʟᴘ Cᴍᴅs", url="t.me/NoraFatehiBot?start=start")
+    [InlineKeyboardButton("Gʀᴏᴜᴘ-Hᴇʟᴘ Cᴍᴅs", url="t.me/NoraFatehiBot?start=start")]
     ]
     if len(iq.query) != 0: 
         return 
