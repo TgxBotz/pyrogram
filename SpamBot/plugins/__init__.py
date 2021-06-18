@@ -46,6 +46,7 @@ MEDIA_QUERY = '''query ($search: String) {
   }
 }'''
 
+from .. import nora
 async def list_admins(chat_id: int):
     return [
         member.user.id
