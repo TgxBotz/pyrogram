@@ -210,11 +210,11 @@ async def flood_detect(_, message):
 async def oof(client, cb):
     user = cb.matches[0].group(1)
     ad = await nora.get_chat_member(cb.message.chat.id, cb.from_user.id)
-    if not ad == "admininstrator" or "creator":
-        await cb.answer("Only admins can execute this cmd!")
+    if not ad != "administrator" or "creator":
+        await cb.answer("Only admins can execute this cmd!", show_alert=True)
         return
     if not ad.can_restrict_members:
-        await cb.answer("You are missing the following rights to use this cmd:CanBanUsers!")
+        await cb.answer("You are missing the following rights to use this cmd:CanBanUsers!", show_alert=True)
         return
     await nora.unban_chat_member(cb.message.chat.id, int(user))
     eh = await nora.get_users(int(user))
