@@ -1,6 +1,7 @@
 from .. import db
 from typing import Dict, List, Union
 
+
 """ Warnings Database! """
 warnsdb = db.warns
 
@@ -119,3 +120,28 @@ async def nsfw_off(chat_id: int):
     if not is_nsfw:
         return
     return await nsfwdb.insert_one({"chat_id": chat_id})
+
+
+""" Flood Database! """
+floodb = db["Flood"]
+
+async def is_flood_on(chat_id: int) -> bool:
+    chat = await floodb.find_one({"chat_id": chat_id})
+    if not chat:
+      return True
+    return False
+
+async def en_flood(chat_id: int):
+    alre = await is_flood_on(chat_id)
+    if alre:
+        return
+    await floodb.delete_one({"chat_id": chat_id})
+    return
+
+async def di_flood(chat_id: int):
+    alre = await floodb.find_one({"chat_id": chat_id})
+    if not alre:
+        await floodb.insert_one({"chat_id": chat_id})
+        return
+
+
