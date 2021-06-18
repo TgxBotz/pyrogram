@@ -155,7 +155,7 @@ async def add_chat(chat_id: int):
     await chatsdb.insert_one({"chat_id": chat_id})
 
 async def chat_already(chat_id: int):
-    ok = chatsdb.find_one({"chat_id": chat_id}}
+    ok = chatsdb.find_one({"chat_id": chat_id})
     if not ok:
         return False
     return True
