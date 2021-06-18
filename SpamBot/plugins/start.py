@@ -46,13 +46,13 @@ DIED = [1704673514]
    & filters.user(DIED)
 )
 async def stats(_, message):
-    ok = len(get_all_users())
-    chats = len(get_all_chats())
+    ok = await get_all_users()
+    chats = await get_all_chats()
     text = f"""
 <b>Nora Sᴛᴀᴛs:</b>
 
-<b>Users:</b> {ok}
-<b>Chats:</b> {chats}
+<b>Users:</b> {len(ok)}
+<b>Chats:</b> {len(chats)}
 """
 
     await message.reply(text, parse_mode="HTML")
