@@ -27,11 +27,14 @@ def adminsOnly(func):
 def selfadmin(func):
     @functools.wraps(func)
     async def self(client, message):
-      ad = await nora.get_chat_member(message.chat.id, 1813724543)
-      if ad.status != "administrator":
-          await message.reply("I need to be admin in the chat to perform this action\n__Mind promoting me?__")
+      if message.chat.type != "private":
+        ad = await nora.get_chat_member(message.chat.id, 1813724543)
+        if ad.status != "administrator":
+            await message.reply("I need to be admin in the chat to perform this action\n__Mind promoting me?__")
+        else:
+            await func(client, message)
       else:
-          await func(client, message)
+          await message.reply("This cmd is made to be used in groups not in PM!")
     return self
 
 async def admind_res(message, user) -> bool:
