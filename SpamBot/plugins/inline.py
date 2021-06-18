@@ -5,6 +5,7 @@ from pyrogram.types import (
      InputTextMessageContent,
      InlineQueryResultArticle
 )
+import sys
 from sys import version as ve
 import requests
 from play_scraper import search
