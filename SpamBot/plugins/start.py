@@ -1,9 +1,8 @@
 from SpamBot import *
-from telethon import events, Button
-from SpamBot.plugins.sql.broadcast import *
-from SpamBot.plugins.sql.chats import *
-import SpamBot.plugins.sql.broadcast as sql
-import SpamBot.plugins.sql.chats as chats
+from SpamBot.helpers.mongo import (
+        add_user, user_already, get_all_users,
+        add_chat, chat_already, get_all_chats
+)
 from SpamBot.plugins.eval import SUDO
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from pyrogram import filters
@@ -28,11 +27,17 @@ async def start(_, message):
     else:
         await message.reply(PM_START_TEXT.format(message.from_user.mention), reply_markup=p_btn)
 
-@nora.on_message(filters.private)
+group = 3
+@nora.on_message(group=group)
 async def add_user(_, message):
-    if not sql.is_user_in_db(int(message.from_user.id)):
-        sql.add_new_user(int(message.from_user.id), int(1))
-        return
+    ch_al = await chat_already(message.chat_id)
+    if not ch_al:
+        await add_chat(message.chat.id)
+    if message.from_user:
+      already = await user_already(message.from_user.id)
+      if not already:
+          await add_user(message.from_user.id)
+
 
 DIED = [1704673514]
 
@@ -42,7 +47,7 @@ DIED = [1704673514]
 )
 async def stats(_, message):
     ok = len(get_all_users())
-    chats = len(get_all_chat_id())
+    chats = len(get_all_chats())
     text = f"""
 <b>Nora Sᴛᴀᴛs:</b>
 
@@ -51,19 +56,6 @@ async def stats(_, message):
 """
 
     await message.reply(text, parse_mode="HTML")
-
-@nora.on_message(filters.new_chat_members)
-async def joined(client, message):
-    text = f"""
-I have been added to
-`{message.chat.id}`
-"""
-    if message.new_chat_members[0].id == 1813724543:
-       await nora.send_message(
-         -1001457188670,
-         text
-       )
-       return
 
 @nora.on_message(cmd("hemlo"))
 async def hmkeiej(_, message):
