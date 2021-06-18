@@ -45,3 +45,11 @@ MEDIA_QUERY = '''query ($search: String) {
     }
   }
 }'''
+
+async def list_admins(chat_id: int):
+    return [
+        member.user.id
+        async for member in nora.iter_chat_members(
+            chat_id, filter="administrators"
+        )
+    ]
