@@ -2,7 +2,6 @@ from pornhub_api import PornhubApi
 from .. import *
 import carbon, asyncio
 from pyrogram import filters
-import SpamBot.plugins.sql.broadcast as sql
 import io
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from google_trans_new import google_translator
