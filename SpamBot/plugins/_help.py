@@ -9,6 +9,7 @@ p_help = InlineKeyboardMarkup([
     [InlineKeyboardButton("✘ Pɪɴs ✘", callback_data="pins"), InlineKeyboardButton("✘ Pᴜʀɢᴇs ✘", callback_data="purges")],
     [InlineKeyboardButton("✘ Lᴏᴄᴋs ✘", callback_data="locks"), InlineKeyboardButton("✘ Mɪsᴄ ✘", callback_data="misc")],
     [InlineKeyboardButton("✘ Tɢx Mᴏᴅᴜʟᴇs ✘", callback_data="mod"), InlineKeyboardButton("✘ NɪɢʜᴛMᴏᴅᴇ ✘", callback_data="ng")],
+    [InlineKeyboardButton("✘ Aɴᴛɪ-Sᴘᴀᴍ ✘", callback_data="anti")],
     [InlineKeyboardButton("✘ GᴏIɴʟɪɴᴇ ✘", switch_inline_query_current_chat="")]
     ])
 

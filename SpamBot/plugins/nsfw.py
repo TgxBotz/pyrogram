@@ -6,8 +6,24 @@ import os
 from time import time
 from pyrogram.types import ChatPermissions
 from SpamBot.helpers.admins import adminsOnly
-from SpamBot.helpers.mongo import is_nsfw_on, nsfw_on, nsfw_off
+from SpamBot.helpers.mongo import (
+        is_nsfw_on, nsfw_on, nsfw_off,
+        is_flood_on, en_flood, di_flood
+)
 
+from . import list_admins
+
+ANTI = """
+**✘ This system can restrict
+members who sends nsfw content
+and spams the chat!**
+
+**‣** `?nsfwscan [enable, disable]` - 
+To Enable/Disable The Nsfw Watch in
+your group!
+**‣*** `?antiflood [enable, disable]` -
+To Enable Flood watch in your chat!
+"""
 async def get_file_id_from_message(message):
     file_id = None
     if message.document:
@@ -53,6 +69,8 @@ nsfw_detect_group = 1
     group=nsfw_detect_group,
 )
 async def detection(client, message):
+    if not is_nsfw_on(message.chat.id):
+        return
     file_id = await get_file_id_from_message(message)
     if not file_id:
         return
@@ -109,3 +127,133 @@ async def msdw(_, message):
         await message.reply(
                 f"Invalid Option\n**Current Setting is `{is_en}`!"
         )
+
+
+DB = {}
+
+def reset_flood(chat_id, user_id=0):
+    for user in DB[chat_id].keys():
+        if user != user_id:
+            DB[chat_id][user] = 0
+
+flood_group = 2
+@nora.on_message(
+    ~filters.service
+    & ~filters.me
+    & ~filters.private
+    & ~filters.channel
+    & ~filters.bot
+    & ~filters.edited,
+    group=flood_group,
+)
+async def flood_detect(_, message):
+    if not is_flood_on(message.chat.id):
+        return
+    chat_id = message.chat.id
+
+    # Initialize db if not already.
+    if chat_id not in DB:
+        DB[chat_id] = {}
+
+    if not message.from_user:
+        reset_flood(chat_id)
+        return
+
+    user_id = message.from_user.id
+    mention = message.from_user.mention
+
+    if user_id not in DB[chat_id]:
+        DB[chat_id][user_id] = 0
+
+    reset_flood(chat_id, user_id)
+
+    mods = await list_admins(chat_id)
+    if user_id in mods:
+        return
+    if DB[chat_id][user_id] >= 10:
+        DB[chat_id][user_id] = 0
+        try:
+            await message.chat.restrict_member(
+                user_id,
+                permissions=ChatPermissions(),
+                until_date=int(time() + 3600),
+            )
+        except Exception:
+            return
+        keyboard = InlineKeyboardMarkup(
+            [
+                [
+                    InlineKeyboardButton(
+                        text=" Unmute ",
+                        callback_data=f"unmute_{user_id}",
+                    )
+                ]
+            ]
+        )
+        text = f"""
+**Flood Detected:**
+
+**User:** {message.from_user.mention}
+**Action:** __Muted For 1 Hour__
+"""
+        return await message.reply_text(
+            text,
+            reply_markup=keyboard,
+        )
+    DB[chat_id][user_id] += 1
+
+@nora.on_callback_query(filters.regex("unmute_(.*)"))
+async def oof(client, cb):
+    user = cb.matches[0].group(1)
+    ad = await nora.get_chat_member(cb.message.chat.id, cb.from_user.id)
+    if not ad == "admininstrator" or "creator":
+        await cb.answer("Only admins can execute this cmd!")
+        return
+    if not ad.can_restrict_members:
+        await cb.answer("You are missing the following rights to use this cmd:CanBanUsers!")
+        return
+    await nora.unban_chat_member(cb.message.chat.id, int(user))
+    eh = await nora.get_users(int(user))
+    mention = cb.from_user.mention
+    text = f"""
+Succesfully unmuted {eh.mention}
+by {mention}
+"""
+    await cb.message.edit(text)
+
+
+@nora.on_message(cmd("antiflood"))
+@adminsOnly
+async def te(_, message):
+    is_en = await is_flood_on(message.chat.id)
+    if len(message.command) == 1:                                                                            await message.reply(
+                f"**Current Group Flood Setting Is:** `{is_en}`"                                              )
+    inp = message.text.split(None, 1)[1]
+    if inp == "enable":
+        await en_flood(message.chat.id)
+        await message.reply(
+                "I have enabled Flood Detection System for this chat!"
+        )
+    elif inp == "disable":
+        await di_flood(message.chat.id)
+        await message.reply(
+                "I have disabled Flood Detection System for this chat!"
+        )
+    else:
+        await message.reply(
+                f"Invalid Option\n**Current Setting is `{is_en}`!"
+        )
+   
+@nora.on_callback_query(filters.regex("anti"))
+async def anti(client, cb):
+    await cb.answer()
+    await cb.edit_message_text(
+            ANTI,
+            reply_markup=InlineKeyboardMarkup([
+                [InlineKeyboardButton("« Bᴀᴄᴋ", callback_data="help")]
+            ]
+        )
+    )
+
+
+
