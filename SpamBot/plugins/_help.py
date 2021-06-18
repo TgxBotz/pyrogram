@@ -20,7 +20,7 @@ HELP_TEXT = """
 /start - To Start Me ;)
 /help - To Get Available Help Menu
 
-Report Bugs At---> **@TgxSupportChat**
+Report Bugs At---> **@TheTelegramChats**
 All cmd can be used with !, ?, /.
 """
 
@@ -28,7 +28,7 @@ All cmd can be used with !, ?, /.
 async def help(_, message):
     if message.chat.type != "private":
        await message.reply("Contact me in PM for Quick Help", reply_markup=InlineKeyboardMarkup([
-       [InlineKeyboardButton("Help And Commands ❓", url="t.me/NoraFatehiBot?start=help")]
+       [InlineKeyboardButton("Help And Commands ❓", url="t.me/ThePyroGramBot?start=help")]
        ]))
        return
     await message.reply(HELP_TEXT, reply_markup=p_help)
@@ -64,7 +64,7 @@ async def _(client, cb):
 @nora.on_callback_query(filters.regex("ng"))
 async def ng(client, cb):
     text = """
-**✘ Do Night Spammers anoy you?
+**✘ Do Night Spammers annoy you?
 Which spams your group in night**
 
 **‣** `?nightmode [on, off]` - To enable or disable nightmode
