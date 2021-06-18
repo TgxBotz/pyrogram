@@ -4,7 +4,11 @@ from pyrogram import filters
 from .. import arq, nora, cmd
 import os
 from time import time
-from pyrogram.types import ChatPermissions
+from pyrogram.types import (
+    ChatPermissions,
+    InlineKeyboardMarkup,
+    InlineKeyboardButton
+)
 from SpamBot.helpers.admins import adminsOnly
 from SpamBot.helpers.mongo import (
         is_nsfw_on, nsfw_on, nsfw_off,
