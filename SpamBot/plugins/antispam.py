@@ -200,7 +200,7 @@ async def flood_detect(_, message):
 **User:** {message.from_user.mention}
 **Action:** __Muted For 1 Hour__
 """
-        return await message.reply_text(
+        return await message.reply(
             text,
             reply_markup=keyboard,
         )
@@ -210,7 +210,7 @@ async def flood_detect(_, message):
 async def oof(client, cb):
     user = cb.matches[0].group(1)
     ad = await nora.get_chat_member(cb.message.chat.id, cb.from_user.id)
-    if not ad != "administrator" or "creator":
+    if not ad.status != "administrator" or "creator":
         await cb.answer("Only admins can execute this cmd!", show_alert=True)
         return
     if not ad.can_restrict_members:
