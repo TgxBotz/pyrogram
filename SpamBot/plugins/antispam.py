@@ -4,7 +4,11 @@ from pyrogram import filters
 from .. import arq, nora, cmd
 import os
 from time import time
-from pyrogram.types import ChatPermissions
+from pyrogram.types import (
+    ChatPermissions,
+    InlineKeyboardMarkup,
+    InlineKeyboardButton
+)
 from SpamBot.helpers.admins import adminsOnly
 from SpamBot.helpers.mongo import (
         is_nsfw_on, nsfw_on, nsfw_off,
@@ -196,7 +200,7 @@ async def flood_detect(_, message):
 **User:** {message.from_user.mention}
 **Action:** __Muted For 1 Hour__
 """
-        return await message.reply_text(
+        return await message.reply(
             text,
             reply_markup=keyboard,
         )
@@ -206,11 +210,11 @@ async def flood_detect(_, message):
 async def oof(client, cb):
     user = cb.matches[0].group(1)
     ad = await nora.get_chat_member(cb.message.chat.id, cb.from_user.id)
-    if not ad == "admininstrator" or "creator":
-        await cb.answer("Only admins can execute this cmd!")
+    if ad.status not in ("administrator", "creator"):
+        await cb.answer("Only admins can execute this cmd!", show_alert=True)
         return
     if not ad.can_restrict_members:
-        await cb.answer("You are missing the following rights to use this cmd:CanBanUsers!")
+        await cb.answer("You are missing the following rights to use this cmd:CanBanUsers!", show_alert=True)
         return
     await nora.unban_chat_member(cb.message.chat.id, int(user))
     eh = await nora.get_users(int(user))
