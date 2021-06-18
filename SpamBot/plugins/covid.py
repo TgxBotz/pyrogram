@@ -98,7 +98,8 @@ async def lyrics(client, iq):
 
 
     result = lyrics.format()
-    ok = [(InlineQueryResultArticle(
+    ok = []
+    ok.append(InlineQueryResultArticle(
      title=f"{song.title}",
      description=f"Song: {song.title}\nArtist: {song.artist}",
      input_message_content=InputTextMessageContent(f"**Lʏʀɪᴄs Sᴇᴀʀᴄʜ: `{input}`**\n\n**Song-Name:** __{song.title}__\n**Artist:** __{song.artist}__\n**Lyrics:** __{result}__"),
@@ -107,7 +108,7 @@ async def lyrics(client, iq):
         [InlineKeyboardButton("Sᴇᴀʀᴄʜ Aɢᴀɪɴ", switch_inline_query_current_chat="lyrics "),
         InlineKeyboardButton("Sʜᴀʀᴇ", switch_inline_query=f"lyrics {input}")],
         ])
-      ))]
+      ))
     await client.answer_inline_query(iq.id, cache_time=0, results=ok)
 
 @nora.on_inline_query(filters.regex("gg"))
