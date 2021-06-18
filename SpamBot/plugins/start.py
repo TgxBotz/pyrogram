@@ -30,14 +30,15 @@ async def start(_, message):
 group = 3
 @nora.on_message(group=group)
 async def lmoa(_, message):
-    ch_al = await chat_already(message.chat.id)
-    if not ch_al:
-        await add_chat(message.chat.id)
+    chat_id = message.chat.id
+    is_served = await chat_already(chat_id)
+    if not is_served:
+        await add_chat(chat_id)
     if message.from_user:
-      already = await user_already(message.from_user.id)
-      if not already:
-          await add_user(message.from_user.id)
-
+        user_id = message.from_user.id
+        is_served = await user_already(user_id)
+        if not is_served:
+            await add_user(user_id)
 
 DIED = [1704673514]
 
