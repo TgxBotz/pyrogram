@@ -1,4 +1,4 @@
-""" Logo Generator! """"
+""" Logo Generator! """
 
 from pyrogram import filters
 from .. import nora
