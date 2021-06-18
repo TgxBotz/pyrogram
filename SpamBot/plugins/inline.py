@@ -21,13 +21,13 @@ ABOUT = """
 """
 
 HELPN = """
-<b>✘Wᴇʟᴄᴏᴍᴇ Tᴏ NᴏʀᴀFᴀᴛᴇʜɪBᴏᴛ</b>
+<b>✘Wᴇʟᴄᴏᴍᴇ Tᴏ PyroGramBot</b>
 
 <code>?start</code> <b>- To Start Me</b>
 <code>?help</code> <b>- To Get Help Menu Of Bot</b>
 
 <b>Updates -</b> @TgxBots
-<b>Support -</b> @TgxSupportChat
+<b>Support -</b> @TheTeleGramChats
 """
 
 EX = """
@@ -41,7 +41,7 @@ EX = """
 <b>➤</b> <code>?gg <query></code> - To get the Google results of a query. 
 
 <b>Updates -</b> @TgxBots
-<b>Support -</b> @TgxSupportChat
+<b>Support -</b> @TheTelegramChats
 """
 
 
@@ -72,7 +72,7 @@ async def inline(client, iq):
     user = iq.from_user.id
     btn = [
     [InlineKeyboardButton("Exᴛʀᴀ-Cᴍᴅs", callback_data=f"ext_{user}"), InlineKeyboardButton("Iɴʟɪɴᴇ-Mᴇɴᴜ", callback_data=f"inline_{user}")],
-    [InlineKeyboardButton("Gʀᴏᴜᴘ-Hᴇʟᴘ Cᴍᴅs", url="t.me/NoraFatehiBot?start=start")]
+    [InlineKeyboardButton("Gʀᴏᴜᴘ-Hᴇʟᴘ Cᴍᴅs", url="t.me/ThePyrogrambot?start=start")]
     ]
     if len(iq.query) != 0: 
         return 
@@ -113,7 +113,7 @@ async def inline(_, message):
 async def ex(client, cb):
     btn = [
     [InlineKeyboardButton("Exᴛʀᴀ-Cᴍᴅs", callback_data=f"ext_{cb.from_user.id}"), InlineKeyboardButton("Iɴʟɪɴᴇ-Mᴇɴᴜ", callback_data=f"inline_{cb.from_user.id}")],
-    [InlineKeyboardButton("Gʀᴏᴜᴘ-Hᴇʟᴘ Cᴍᴅs", url="t.me/NoraFatehiBot?start=start")]
+    [InlineKeyboardButton("Gʀᴏᴜᴘ-Hᴇʟᴘ Cᴍᴅs", url="t.me/ThePyroGramBot?start=start")]
     ]
   
     user = int(cb.matches[0].group(1))
