@@ -29,7 +29,7 @@ async def start(_, message):
 
 group = 3
 @nora.on_message(group=group)
-async def add_user(_, message):
+async def lmoa(_, message):
     ch_al = await chat_already(message.chat.id)
     if not ch_al:
         await add_chat(message.chat.id)
