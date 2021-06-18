@@ -145,3 +145,50 @@ async def di_flood(chat_id: int):
         return
 
 
+""" Chats Databse! """
+chatsdb = db["Chats"]
+
+async def add_chat(chat_id: int):
+    alre = await chat_already(chat_id)
+    if alre:
+        return
+    await chatsdb.insert_one({"chat_id": chat_id})
+
+async def chat_already(chat_id: int):
+    ok = chatsdb.find_one({"chat_id": chat_id}}
+    if not ok:
+        return False
+    return True
+
+async def get_all_chats() -> list:
+    chats = chatsdb.find({"chat_id": {"$lt": 0}})
+    if not chats:
+        return []                                                         chats_list = []
+    for chat in await chats.to_list(length=1000000000):
+        chats_list.append(chat)
+    return chats_list
+
+""" Users DataBase  """
+
+usersdb = db["Users"]
+
+async def user_already(user_id: int):
+    user = await usersdb.find_one({"user_id": user_id})
+    if not user:
+        return False
+    return True
+
+async def get_all_users() -> list:
+    users = usersdb.find({"user_id": {"$gt": 0}})
+    if not users:
+        return []
+    users_list = []
+    for user in await users.to_list(length=1000000000):
+        users_list.append(user)
+    return users_list
+
+async def add_user(user_id: int):
+    ok = await user_already(user_id)
+    if ok:
+        return
+    await usersdb.insert_one({"user_id": user_id})
