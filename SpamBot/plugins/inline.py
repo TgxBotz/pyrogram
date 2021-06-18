@@ -5,18 +5,21 @@ from pyrogram.types import (
      InputTextMessageContent,
      InlineQueryResultArticle
 )
+from sys import version as ve
 import requests
 from play_scraper import search
-
+from pyrogram import __version__ as pyv
 from SpamBot import *
 from SpamBot.helpers.wrappers import cb_wrapper
+from motor import version as mongove
 
-ABOUT = """
-<b>Bot is Alive.</b>
+ABOUT = f"""
+<b>PyroGramBot is Alive!</b>
 
-<b>Python:</b> <code>3.9.5</code>
-<b>Pyrogram:</b> <code>1.2.9</code>
-<b>Hosting:</b> <code>Heroku</code>
+<b>Python:</b> <code>{ve.split()[0]}</code>
+<b>Pyrogram:</b> <code>{pyv}</code>
+<b>MongoDB:</b> <code>{mongove}</code>
+<b>PlatForm:</b> <code>{sys.platform}</code>
 <b>Support:</b> @TheTelegramChats
 """
 
@@ -79,7 +82,7 @@ async def inline(client, iq):
     alive = (InlineQueryResultArticle(
      title=f"Bot Alive.",
      description="Current Bot Status",
-     thumb_url="https://telegra.ph//file/f81da799a4ad11aea8d1d.jpg",
+     thumb_url="https://telegra.ph//file/10ff3306b3daf6b788d8a.jpg",
      input_message_content=InputTextMessageContent(ABOUT),
      reply_markup=InlineKeyboardMarkup([
      [InlineKeyboardButton("Hᴇʟᴘ-Mᴇɴᴜ", callback_data=f"menu_{user}")]
