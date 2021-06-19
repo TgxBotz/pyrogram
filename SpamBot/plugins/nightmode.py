@@ -53,11 +53,7 @@ async def job_close():
             
         except Exception as e:
             logging.info(str(e))
-            ido = warner.get("chat_id")
-            try:
-                await nora.send_message(int(warner.get("chat_id")), f"Failed to close Group\n**Error:** `{e}`")
-            except:
-                pass
+            return
 
 scheduler = AsyncIOScheduler(timezone="Asia/Kolkata")
 scheduler.add_job(job_close, trigger="cron", hour=23, minute=59)
@@ -79,16 +75,15 @@ async def job_open():
                             can_send_messages=True,
                             can_send_media_messages=True,
                             can_send_stickers=True,
-                            can_send_animations=True
+                            can_send_animations=True,
+                            can_send_polls=True,
+                            can_use_inline_bots=True,
+                            can_add_web_page_previews=True
                          )
             )
         except Exception as e:
             logging.info(str(e))
-            ido = warner.get("chat_id")
-            try:
-                await nora.send_message(int(warner.get("chat_id")), f"Failed to open Group\n**Error:** `{e}`")
-            except:
-                pass
+            return
 
 scheduler = AsyncIOScheduler(timezone="Asia/Kolkata")
 scheduler.add_job(job_open, trigger="cron", hour=5, minute=59)
