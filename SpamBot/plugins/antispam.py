@@ -12,10 +12,12 @@ from pyrogram.types import (
 from SpamBot.helpers.admins import adminsOnly
 from SpamBot.helpers.mongo import (
         is_nsfw_on, nsfw_on, nsfw_off,
-        is_flood_on, en_flood, di_flood
+        is_flood_on, en_flood, di_flood,
+        is_pdb, add_pdb, rm_pdb
 )
 
 from . import list_admins
+from ProfanityDetector import detector
 
 ANTI = """
 **✘ This system can restrict
@@ -247,7 +249,59 @@ async def te(_, message):
         await message.reply(
                 f"Invalid Option\n**Current Setting is `{is_en}`!"
         )
-   
+
+
+@nora.on_message(cmd("profanity"))
+@adminsOnly
+async def prof(client, message):
+    chat_id = message.chat.id
+    is_en = await is_pdb(chat_id)
+    if len(message.command) == 2:
+        await message.reply("**Current Profanity Settings:** `{is_en}`")
+        return
+    ok = message.command[1]
+    if ok == "enable":
+        await add_pdb(chat_id)
+        await message.reply("**Succesfully Enabled Profanity Detection for {}**".format(
+            message.chat.title
+            )
+        )
+    elif ok == "disable":
+        await rm_pdb(chat_id)
+        await message.reply("**Successfully Disabled Profanity Detection for {}".format(
+            message.chat.title
+            )
+        )
+    else:
+        await message.reply("**Invalid Suffix**\n__Current Setting is {}__".format(
+            is_en
+            )
+        )
+        
+prof_group = 4
+
+@nora.on_message(
+        & ~fIlters.text
+        & ~filters.edited,
+        group=prof_group
+)
+async def detection(client, message):
+    chat_id = message.chat.id
+    if not is_pdb(chat_id):
+        return
+
+    msg = message.text
+    word, det = detector(msg)
+    if dec:
+        try:
+            men = message.from_user.mention
+            await message.delete()
+            await message.reply(f"{men} has sent a blacklisted word and I have deleted it!")
+        except BaseException as be:
+            await message.reply(f"**Detected a profanity word but cant delete:**\n`{be}`")
+
+
+       
 @nora.on_callback_query(filters.regex("anti"))
 async def anti(client, cb):
     await cb.answer()

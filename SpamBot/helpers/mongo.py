@@ -193,3 +193,30 @@ async def add_user(user_id: int):
     if ok:
         return
     await usersdb.insert_one({"user_id": user_id})
+
+
+"""  Profanity DataBase! """
+
+pdb = db["Profanity"]
+
+async def is_pdb(chat_id: int):
+    chat = await pdb.find_one({"chat_id": chat_id})
+    if not chat:
+        return True
+    return False
+
+async def add_pdb(chat_id: int):
+    alre = await is_pdb(chat_id)
+    if alre:
+        return
+    await pdb.delete_one({"chat_id": chat_id})
+    return
+
+async def rm_pdb(chat_id: int):
+    alre = await is_pdb(chat_id)
+    if not alre:
+        return
+    await pdb.insert_one({"chat_id": chat_id})
+    return
+
+

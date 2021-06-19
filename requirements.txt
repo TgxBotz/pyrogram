@@ -1,6 +1,7 @@
 aiohttp
 tinydb>=4.4.0
 python-arq
+ProfanityDetector
 pyrogram
 telethon
 TgCrypto
