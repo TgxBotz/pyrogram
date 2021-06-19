@@ -199,7 +199,7 @@ async def add_user(user_id: int):
 
 pdb = db["Profanity"]
 
-async def is_pdb(chat_id: int):
+async def is_pdb(chat_id: int) -> bool:
     chat = await pdb.find_one({"chat_id": chat_id})
     if not chat:
         return True

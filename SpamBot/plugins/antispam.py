@@ -153,7 +153,7 @@ flood_group = 2
     group=flood_group,
 )
 async def flood_detect(_, message):
-    if not is_flood_on(message.chat.id):
+    if not await is_flood_on(message.chat.id):
         return
     chat_id = message.chat.id
 
@@ -257,7 +257,7 @@ async def prof(client, message):
     chat_id = message.chat.id
     is_en = await is_pdb(chat_id)
     if len(message.command) == 1:
-        await message.reply("**Current Profanity Settings:** `{is_en}`")
+        await message.reply(f"**Current Profanity Settings:** `{is_en}`")
         return
     ok = message.command[1]
     if ok == "enable":
@@ -285,7 +285,7 @@ prof_group = 4
 )
 async def detection(client, message):
     chat_id = message.chat.id
-    if not is_pdb(chat_id):
+    if not await s_pdb(chat_id):
         return
 
     msg = message.text
