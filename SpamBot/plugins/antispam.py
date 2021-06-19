@@ -281,8 +281,6 @@ async def prof(client, message):
 prof_group = 4
 
 @nora.on_message(
-        & ~filters.text
-        & ~filters.edited,
         group=prof_group
 )
 async def detection(client, message):
