@@ -285,7 +285,7 @@ prof_group = 4
 )
 async def detection(client, message):
     chat_id = message.chat.id
-    if not await s_pdb(chat_id):
+    if not await is_pdb(chat_id):
         return
 
     msg = message.text
