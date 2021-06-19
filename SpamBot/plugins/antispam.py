@@ -287,7 +287,9 @@ async def detection(client, message):
     chat_id = message.chat.id
     if not await is_pdb(chat_id):
         return
-
+    is_admin = await nora.get_chat_member(chat_id, message.from_user.id)
+    if is_admin.status in ("creator", "administrator"):
+        return
     msg = message.text
     word, det = detector(msg)
     if det:
