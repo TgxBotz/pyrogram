@@ -27,8 +27,11 @@ and spams the chat!**
 **‣** `?nsfwscan [enable, disable]` - 
 To Enable/Disable The Nsfw Watch in
 your group!
-**‣*** `?antiflood [enable, disable]` -
+**‣** `?antiflood [enable, disable]` -
 To Enable Flood watch in your chat!
+**‣** `?profanity [enable, disable]` - 
+To Detect the msgs containing abuses
+and delete it!
 """
 async def get_file_id_from_message(message):
     file_id = None
@@ -268,7 +271,7 @@ async def prof(client, message):
         )
     elif ok == "disable":
         await rm_pdb(chat_id)
-        await message.reply("**Successfully Disabled Profanity Detection for {}".format(
+        await message.reply("**Successfully Disabled Profanity Detection for {}**".format(
             message.chat.title
             )
         )
