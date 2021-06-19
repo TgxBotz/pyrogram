@@ -256,7 +256,7 @@ async def te(_, message):
 async def prof(client, message):
     chat_id = message.chat.id
     is_en = await is_pdb(chat_id)
-    if len(message.command) == 2:
+    if len(message.command) == 1:
         await message.reply("**Current Profanity Settings:** `{is_en}`")
         return
     ok = message.command[1]
@@ -290,7 +290,7 @@ async def detection(client, message):
 
     msg = message.text
     word, det = detector(msg)
-    if dec:
+    if det:
         try:
             men = message.from_user.mention
             await message.delete()
