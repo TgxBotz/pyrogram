@@ -15,7 +15,9 @@ p_btn = InlineKeyboardMarkup([
 
 PM_START_TEXT = """
 **Hi {}**
-I am a bot who works for @TheTelegramChats and can Detect Spammers in Groups Can Protect The Group
+I am a Bot Made with pyrogram from scratch,
+I can help you in managing your group with
+advanced modules!
 
 **Click the below button for getting help menu!**
 """
@@ -23,7 +25,7 @@ I am a bot who works for @TheTelegramChats and can Detect Spammers in Groups Can
 @nora.on_message(cmd("start"))
 async def start(_, message):
     if message.chat.type != "private":
-        await message.reply("Heya Nora Here :)")
+        await message.reply("**Pyrogram is Alive 🔥**")
     else:
         await message.reply(PM_START_TEXT.format(message.from_user.mention), reply_markup=p_btn)
 
