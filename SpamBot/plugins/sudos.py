@@ -5,6 +5,13 @@ from pyrogram import filters
 import os
 LOG_CHAT = int(os.environ.get("LOG_CHAT"))
 
+ADD_MSG = """
+**New Sudo:**
+
+**User:** {}
+**By:** @TheStarkXD
+"""
+
 from SpamBot import nora, cmd
 DEB = 1704673514
 
