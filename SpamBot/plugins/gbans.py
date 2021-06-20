@@ -1,5 +1,5 @@
 from SpamBot.helpers.mongo import (
-        add_sudo, rm_sudo, sudo_already
+        add_sudo, rm_sudo, sudo_already,
         gban_user, ungban_user, gbanned_already,
         get_all_sudos
 )
@@ -12,6 +12,7 @@ MSG = """
 
 **User:** {}
 **Admin:** {}
+**User-ID:** `{}`
 **Reason:** {}
 
 """
@@ -36,16 +37,22 @@ async def gban_(client, message):
         reason = message.text.split(None, 2)[1]
     else:
         reason = "No Reason!"
-        
-    await nora.send_message(
-            LOG_CHAT, 
-            MSG
-    )
     try:
         get_user = await nora.get_users(user_id)
     except BaseException as be:
         await message.reply("**Error:**\n`{be}`")
         return
+
+    await nora.send_message(
+            LOG_CHAT, 
+            MSG.format(
+                get_user.mention,
+                message.from_user.nention,
+                g_id,
+                reason 
+            )
+
+    )
 
     await message.reply(
             "Succesfully Gbanned {}".format(
