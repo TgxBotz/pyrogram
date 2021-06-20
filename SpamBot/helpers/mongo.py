@@ -241,7 +241,7 @@ async def already_sudo(user_id: int) -> bool:
         return False
     return True
 
-async def get_all_sudos(user_id: int) -> list:
+async def get_all_sudos() -> list:
     users = sudodb.find({"user_id": {"$gt": 0}})
     if not users:
         return []
