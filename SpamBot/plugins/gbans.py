@@ -1,6 +1,6 @@
 from SpamBot.helpers.mongo import (
-        add_sudo, rm_sudo, sudo_already,
-        gban_user, ungban_user, gbanned_already,
+        add_sudo, rm_sudo, already_sudo,
+        gban_user, ungban_user, already_gbanned,
         get_all_sudos
 )
 from pyrogram import filters
