@@ -55,7 +55,7 @@ async def gban_(client, message):
             MSG.format(
                 get_user.mention,
                 message.from_user.mention,
-                g_id,
+                get_user.id,
                 reason 
             )
 
