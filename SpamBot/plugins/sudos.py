@@ -37,8 +37,10 @@ async def adding_sumdo(client, message):
      return
     await add_sudo(user_id)
     await nora.send_message(
-            LOG_CHAT, 
-            ADD_MSG
+            LOG_CHAT,
+            ADD_MSG.format(
+             user_id
+         )
     )
     await message.reply("Promoted To Sudo!")
 
