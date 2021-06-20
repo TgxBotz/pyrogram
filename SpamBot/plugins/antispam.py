@@ -120,6 +120,8 @@ async def msdw(_, message):
         await message.reply(
                 f"**Current Group Nsfw Setting Is:** `{is_en}`"
         )
+        return
+
     inp = message.text.split(None, 1)[1]
     if inp == "enable":
         await nsfw_on(message.chat.id)
