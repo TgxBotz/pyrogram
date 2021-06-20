@@ -26,11 +26,6 @@ async def gban_(client, message):
                 "You cant use this cmd!"
         )
         return
-    if message.from_user.id in SUDOS:
-        await message.reply(
-                "You cant gban a Sudo!"
-        )
-        return
 
     if len(message.command) == 1:
         await message.reply("Reply to a user or give its id to gban him!")
@@ -48,6 +43,11 @@ async def gban_(client, message):
         get_user = await nora.get_users(user_id)
     except BaseException as be:
         await message.reply("**Error:**\n`{be}`")
+        return
+    if get_user.id in SUDOS:
+        await message.reply(
+                "You cant gban a Sudo!"
+        )
         return
 
     await nora.send_message(
