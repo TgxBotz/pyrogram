@@ -83,8 +83,8 @@ async def gban_(client, message):
                 )
             )
 
-nora.on_message(cmd("ungban"))
-async def gban_(client, message):
+@nora.on_message(cmd("ungban"))
+async def ungban_(client, message):
     if message.from_user.id not in SUDOS:
         await message.reply(
                 "You cant use this cmd!"
