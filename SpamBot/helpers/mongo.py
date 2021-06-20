@@ -255,16 +255,12 @@ async def get_all_sudos() -> list:
 gbansdb = db["Gbans"]
 
 async def gban_user(user_id: int):
-    alre = await already_gbanned(user_id)
-    if not alre:
-        await gbansdb.insert_one({"user_id": user_id})
-        return
+    await gbansdb.insert_one({"user_id": user_id})
+    return
 
 async def ungban_user(user_id: int):
-    alre = await already_gbanned(user_id)
-    if not alre:
-        await gbansdb.delete_one({"user_id": user_id})
-        return
+    await gbansdb.delete_one({"user_id": user_id})
+    return
 
 async def already_gbanned(user_id: int) -> bool:
     ok = gbansdb.find_one({"user_id": user_id})
