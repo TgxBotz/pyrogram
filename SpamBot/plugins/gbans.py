@@ -35,7 +35,6 @@ async def gban_(client, message):
         user_id = message.reply_to_message.from_user.id
     elif not message.reply_to_message and len(message.command) != 1:
         user_id = message.text.split(None, 1)[1]
-    await gban_user(user_id)
 
     if len(message.command) == 2:
         reason = message.text.split(None, 2)[1]
@@ -48,7 +47,7 @@ async def gban_(client, message):
         await message.reply("**Error:**\n`{be}`")
         return
     alre = await already_gbanned(get_user.id)
-    if alre:
+    if not alre:
         await message.reply(
                 "He is already Gbanned!\nLoL"
         )
@@ -59,7 +58,7 @@ async def gban_(client, message):
                 "You cant gban a Sudo!"
         )
         return
-
+    await gban_user(user_id)
     await nora.send_message(
             LOG_CHAT, 
             MSG.format(
