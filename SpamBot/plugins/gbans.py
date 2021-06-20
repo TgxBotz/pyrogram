@@ -44,7 +44,7 @@ async def gban_(client, message):
         return
     try:
         get_user = await nora.get_users(user_id)
-    except BaseException as be::
+    except BaseException as be:
         await message.reply("**Error:**\n`{be}`")
         return
     alre = await already_gbanned(get_user.id)
