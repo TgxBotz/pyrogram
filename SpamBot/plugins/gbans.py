@@ -3,6 +3,7 @@ from SpamBot.helpers.mongo import (
         gban_user, ungban_user, already_gbanned,
         get_all_sudos
 )
+import os
 from pyrogram import filters
 from .. import nora, cmd
 
