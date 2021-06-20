@@ -1,7 +1,5 @@
 from SpamBot.helpers.mongo import (
-        add_sudo, rm_sudo, already_sudo,
         gban_user, ungban_user, already_gbanned,
-        get_all_sudos
 )
 import os
 from pyrogram import filters
@@ -19,11 +17,12 @@ MSG = """
 
 """
 
+SUDOS = [1704673514]
 
 @nora.on_message(cmd("gban"))
 async def gban_(client, message):
     sudos = await already_sudo(message.from_user.id)
-    if message.from_user.id != sudos or message.from_user.id != DEB:
+    if message.from_user.id not in SUDOS:
         await message.reply(
                 "You cant use this cmd!"
         )
@@ -51,7 +50,7 @@ async def gban_(client, message):
             LOG_CHAT, 
             MSG.format(
                 get_user.mention,
-                message.from_user.nention,
+                message.from_user.mention,
                 g_id,
                 reason 
             )
