@@ -6,6 +6,7 @@ from SpamBot.helpers.mongo import (
 import os
 from pyrogram import filters
 from .. import nora, cmd
+from SpamBot.plugins.sudos import DEB
 
 LOG_CHAT = int(os.environ.get("LOG_CHAT"))
 MSG = """
