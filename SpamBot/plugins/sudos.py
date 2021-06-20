@@ -3,7 +3,7 @@ from SpamBot.helpers.mongo import (
 )
 from pyrogram import filters
 import os
-ALOG_CHAT = int(os.environ.get("LOG_CHAT"))
+LOG_CHAT = int(os.environ.get("LOG_CHAT"))
 
 from SpamBot import nora, cmd
 DEB = 1704673514
