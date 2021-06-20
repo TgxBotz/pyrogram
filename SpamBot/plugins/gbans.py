@@ -29,16 +29,19 @@ async def gban_(client, message):
 
     if len(message.command) == 1:
         await message.reply("Reply to a user or give its id to gban him!")
+        return
 
     if message.reply_to_message:
         user_id = message.reply_to_message.from_user.id
     elif len(message.command) != 1:
         user_id = message.text.split(None, 1)[1]
     await gban_user(user_id)
+
     if len(message.command) == 2:
         reason = message.text.split(None, 2)[1]
     else:
         reason = "No Reason!"
+        return
     try:
         get_user = await nora.get_users(user_id)
     except BaseException as be:
