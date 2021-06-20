@@ -23,7 +23,7 @@ MSG = """
 @nora.on_message(cmd("gban"))
 async def gban_(client, message):
     sudos = await get_all_sudos()
-    if message.from_user.id not in sudos or != DEB:
+    if message.from_user.id not in sudos or message.from_user.id != DEB:
         return await message.reply(
                 "You cant use this cmd!"
                 )
