@@ -31,6 +31,10 @@ async def adding_sumdo(client, message):
                 "Reply to a user or give its id to add sudo!"
         )
         return
+    alre = await already_sudo(user_id)
+    if alre:
+     await message.reply("He is already a sudo user!")
+     return
     await add_sudo(user_id)
     await nora.send_message(
             LOG_CHAT, 
