@@ -267,7 +267,7 @@ async def ungban_user(user_id: int):
         return
 
 async def already_gbanned(user_id: int) -> bool:
-    ok = gbansdb.find_one(user_id)
+    ok = gbansdb.find_one({"user_id": user_id})
     if ok:
         return False
     return True
