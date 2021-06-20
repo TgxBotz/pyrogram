@@ -97,7 +97,6 @@ async def detection(client, message):
         return
     try:
         await message.delete()
-        await nora.restrict_chat_member(message.chat.id, message.from_user.id, ChatPermissions(), int(time() + 3600))
     except BaseException as be:
         await message.reply(f"**Error:** `{be}`")
         return
@@ -107,7 +106,7 @@ async def detection(client, message):
 
 **User:** {message.from_user.mention}
 **Porn:** `{results.porn}`
-**Action:** __Muted For 1 Hour!__
+**Action:** __Deleted!__
 """
     await message.reply_text(
             text
