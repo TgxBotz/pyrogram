@@ -55,7 +55,7 @@ async def gban_(client, message):
         await message.reply("**Error:**\n`{be}`")
         return
     alre = await already_gbanned(get_user.id)
-    if not alre:
+    if alre:
         await message.reply(
                 "He is already Gbanned!\nLoL"
         )
