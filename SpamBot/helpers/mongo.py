@@ -154,7 +154,7 @@ async def add_chat(chat_id: int):
         return
     await chatsdb.insert_one({"chat_id": chat_id})
 
-async def chat_already(chat_id: int):
+async def chat_already(chat_id: int) -> bool:
     ok = chatsdb.find_one({"chat_id": chat_id})
     if not ok:
         return False
@@ -173,7 +173,7 @@ async def get_all_chats() -> list:
 
 usersdb = db["Users"]
 
-async def user_already(user_id: int):
+async def user_already(user_id: int) -> bool:
     user = await usersdb.find_one({"user_id": user_id})
     if not user:
         return False
@@ -220,3 +220,54 @@ async def rm_pdb(chat_id: int):
     return
 
 
+"""  Sudos DataBase  """
+sudodb = db["Sudos"]
+
+async def add_sudo(user_id: int):
+    alre = await already_sudo(user_id)
+    if not alre:
+        await sudodb.insert_one({"user_id": user_id})
+        return
+
+async def rm_sudo(user_id: int):
+    alre = await already_sudo(user_id)
+    if not alre:
+        await sudodb.delete_one({"user_id": user_id})
+        return
+
+async def already_sudo(user_id: int) -> bool:
+    ok = await sudodb.find_one({"user_id": user_id})
+    if ok:
+        return False
+    return True
+
+async def get_all_sudos(user_id: int) -> list:
+    users = sudodb.find({"user_id": {"$gt": 0}})
+    if not users:
+        return []
+    users_list = []
+    for user in await users.to_list(length=1000000000):
+        users_list.append(user)
+    return users_list
+
+""" Gbans DataBase! """
+
+gbansdb = db["Gbans"]
+
+async def gban_user(user_id: int):
+    alre = await already_gbanned(user_id)
+    if not alre:
+        await gbansdb.insert_one({"user_id": user_id})
+        return
+
+async def ungban_user(user_id: int):
+    alre = await already_gbanned(user_id)
+    if not alre:
+        await gbansdb.delete_one({"user_id": user_id})
+        return
+
+async def already_gbanned(user_id: int) -> bool:
+    ok = gbansdb.find_one(user_id)
+    if ok:
+        return False
+    return True
