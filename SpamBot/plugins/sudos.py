@@ -2,7 +2,9 @@ from SpamBot.helpers.mongo import (
         add_sudo, rm_sudo, already_sudo
 )
 from pyrogram import filters
-from SpamBot.plugins.gbans import LOG_CHAT
+import os
+ALOG_CHAT = int(os.environ.get("LOG_CHAT"))
+
 from SpamBot import nora, cmd
 DEB = 1704673514
 
