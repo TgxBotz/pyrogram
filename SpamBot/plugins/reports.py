@@ -15,12 +15,12 @@ async def admins(message):
 @nora.on_message(cmd("report"))
 async def reporting(_, message):
     if message.reply_to_message:
-        admins = await admins(message)
+        admin = await admins(message)
         kk = f"@{admin}\n"
         msg = await message.reply(
                 kk
         )
-        await kk.edit(
+        await msg.edit(
                 "Report The Message to admins!"
         )
         return
