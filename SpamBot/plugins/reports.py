@@ -20,7 +20,7 @@ async def reporting(_, message):
             message.chat.id, filter="administrators"
             ):
       
-            kk += f" @{user.user.username}\n "
+            kk += f" @{user.user.mention}\n "
         msg = await message.reply(
                 kk)
         time.sleep(1)
