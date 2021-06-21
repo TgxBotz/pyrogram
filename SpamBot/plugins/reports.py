@@ -4,10 +4,10 @@ from .. import nora, cmd
 import asyncio
 
 
-async def admins(message):
+async def admins(chat_id: int):
     admin = []
-    for user in nora.iter_chat_members(
-            message.chat.id, filter="administrators"
+    async for user in nora.iter_chat_members(
+            chat_id, filter="administrators"
             ):
            admin.append(user.user.username)
     return admin
@@ -15,7 +15,7 @@ async def admins(message):
 @nora.on_message(cmd("report"))
 async def reporting(_, message):
     if message.reply_to_message:
-        admin = await admins(message)
+        admin = await admins(message.chat.id)
         kk = f"@{admin}\n"
         msg = await message.reply(
                 kk
