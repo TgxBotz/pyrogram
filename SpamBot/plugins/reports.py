@@ -1,7 +1,7 @@
 """ Reporting Module! """
 
 from .. import nora, cmd
-import asyncio
+import time
 
 
 async def admins(chat_id: int):
@@ -20,10 +20,10 @@ async def reporting(_, message):
             message.chat.id, filter="administrators"
             ):
       
-            kk += f"@{user.user.username}\n"
+            kk += f" @{user.user.username}\n "
         msg = await message.reply(
                 kk)
-        await asyncio.sleep(1)
+        time.sleep(1)
         await msg.edit(
                 "Report The Message to admins!"
           )
