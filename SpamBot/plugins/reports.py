@@ -15,17 +15,18 @@ async def admins(chat_id: int):
 @nora.on_message(cmd("report"))
 async def reporting(_, message):
     if message.reply_to_message:
-        admin = await admins(message.chat.id)
-        for ad in admin:
-
-          kk = f"@{ad}\n"
-          msg = await message.reply(
-                kk
-          )
-          await msg.edit(
+        async for user in nora.iter_chat_members(
+            message.chat.id, filter="administrators"
+            ):
+            ad = user.user.username
+      
+        kk = f"@{ad}\n"
+        msg = await message.reply(
+                kk)
+        await msg.edit(
                 "Report The Message to admins!"
           )
-          return
+        return
     await message.reply(
        "Reply to a message to report it!"
     )
