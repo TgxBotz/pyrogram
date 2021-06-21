@@ -14,12 +14,13 @@ async def admins(chat_id: int):
 
 @nora.on_message(cmd("report"))
 async def reporting(_, message):
+    kk = ""
     if message.reply_to_message:
         async for user in nora.iter_chat_members(
             message.chat.id, filter="administrators"
             ):
       
-            kk = f"@{user.user.username}\n"
+            kk += f"@{user.user.username}\n"
         msg = await message.reply(
                 kk)
         await asyncio.sleep(1)
