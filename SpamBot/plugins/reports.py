@@ -18,9 +18,8 @@ async def reporting(_, message):
         async for user in nora.iter_chat_members(
             message.chat.id, filter="administrators"
             ):
-            ad = user.user.username
       
-        kk = f"@{ad}\n"
+        kk = f"@{user.user.username}\n"
         msg = await message.reply(
                 kk)
         await msg.edit(
