@@ -16,14 +16,16 @@ async def admins(chat_id: int):
 async def reporting(_, message):
     if message.reply_to_message:
         admin = await admins(message.chat.id)
-        kk = f"@{admin}\n"
-        msg = await message.reply(
+        for ad in admin:
+
+          kk = f"@{ad}\n"
+          msg = await message.reply(
                 kk
-        )
-        await msg.edit(
+          )
+          await msg.edit(
                 "Report The Message to admins!"
-        )
-        return
+          )
+          return
     await message.reply(
        "Reply to a message to report it!"
     )
