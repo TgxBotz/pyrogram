@@ -8,8 +8,8 @@ async def admins(message):
     admin = []
     for user in nora.iter_chat_members(
             message.chat.id, filter="administrators"
-        )
-        admin.append(user.username)
+            )
+    admin.append(user.username)
     return admin
 
 @nora.on_message(cmd("report"))
@@ -27,4 +27,3 @@ async def reporting(_, message):
     await message.reply(
        "Reply to a message to report it!"
     )
-~
