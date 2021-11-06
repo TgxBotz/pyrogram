@@ -8,7 +8,6 @@ from pyrogram.types import (
     InlineQueryResultArticle
 )
 from re import findall
-from search_engine_parser import GoogleSearch
 from tswift import Song
 
 @nora.on_inline_query(filters.regex("covid"))
