@@ -15,7 +15,7 @@ logging.getLogger("apscheduler").setLevel(logging.ERROR)
 
 cmd = partial(filters.command, prefixes=list("!?/"))
 
-MONGO_URL = "mongodb+srv://pyrogram:pyrogram@cluster0.hph8v.mongodb.net/telegram?retryWrites=true&w=majority"
+MONGO_URL = "mongodb+srv://zefrina:zefrina@cluster0.actxd.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
 mongo = MongoClient(MONGO_URL)
 db = mongo.pyro
 
