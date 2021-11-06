@@ -21,7 +21,7 @@ db = mongo.pyro
 
 APP_ID = 6
 API_HASH = "eb06d4abfb49dc3eeb1aeb98ae0f581e"
-TOKEN = "1813724543:AAGzWE-Qx6i59YiWrtgHchZ2RBVmUIKNRfg"
+TOKEN = "2144355820:AAHDLzHhnhuutlVYyMsBeZdeMYd5FIswD2w"
 DB_URI = "postgres://tqorpxto:TfSx0WpsjqKSE2iGgrq-c0xk5Im-nryF@queenie.db.elephantsql.com:5432/tqorpxto"
 
 START_TIME = time.time()
